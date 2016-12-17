@@ -5,9 +5,9 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  * @author qanazoga
- * @version 11/20/2016
+ * @version 12/17/2016
  */
-public class KillUrselfCommand implements Command {
+public class KYSCommand implements Command {
     @Override
     public String help() {
         return "<Optional:USER ID> Give a user the final solution.";

@@ -20,7 +20,7 @@ public class KickRaiderCommand implements Command{
         User author = event.getAuthor();        
         try {
             // Make sure the message was written by a fucboi.
-        	if (guild.getMembersWithRoles(guild.getRoleById("#")).contains(event.getMember())) {
+        	if (guild.getMembersWithRoles(guild.getRoleById("145992439977476097")).contains(event.getMember())) {
                 
                 // Tell the fucboi that they need to target someone.
                 if (message.getMentionedUsers().isEmpty()) channel.sendMessage("You need to target a raider!").queue();
@@ -28,7 +28,7 @@ public class KickRaiderCommand implements Command{
                     for (User u : event.getMessage().getMentionedUsers()) {
                         
                         // Tell the fucboi if their target is also a fucboi.
-                        if (guild.getMembersWithRoles(guild.getRoleById("#")).contains(guild.getMember(u))) {
+                        if (guild.getMembersWithRoles(guild.getRoleById("145992439977476097")).contains(guild.getMember(u))) {
                             channel.sendMessage(u.getName() + " is a fucboi").queue();
                         } else { // Kick the raider
                         	channel.sendMessage("Now kicking " + u.getAsMention()).queue();

@@ -8,13 +8,13 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Game;
 import soturi.commands.*;
+import soturi.Tokens.*;
 
 /**
  * @author qanazoga
  * @version 11/20/2016
  */
 public class Bot {
-	private static String botToken = "#";
 	private static JDA jda;
 	private static HashMap<String, Command> commands = new HashMap<>();
 	
@@ -22,14 +22,15 @@ public class Bot {
 		// Add commands here.
         commands.put(">help", new HelpCommand());
         commands.put(">kickraider", new KickRaiderCommand());
-        commands.put(">kms", new KillMyselfCommand());
-        commands.put(">kys", new KillUrselfCommand());
+        commands.put(">kms", new KMSCommand());
+        commands.put(">kys", new KYSCommand());
         commands.put(">pepe", new PepeCommand());
-        commands.put(">mfw", new MfwCommand());
+        commands.put(">mfw", new MFWCommand());
+        commands.put(">roll", new RollCommand());
         
 		// Try logging in.
 		try {
-			 jda = new JDABuilder(AccountType.BOT).addListener(new BotListener()).setToken(botToken).buildBlocking();
+			 jda = new JDABuilder(AccountType.BOT).addListener(new BotListener()).setToken(Tokens.botToken).buildBlocking();
 			 jda.setAutoReconnect(true);
 			 jda.getPresence().setGame(Game.of(">help"));
 		 } catch(Exception e) {
@@ -43,7 +44,7 @@ public class Bot {
         while (line.equalsIgnoreCase("quit") == false) {
             line = " ";
             line = in.nextLine();
-            if (!line.isEmpty()) jda.getGuildById("#").getTextChannelById("#").sendMessage(line).queue();
+            if (!line.isEmpty()) jda.getGuildById(Tokens.guilds.get(Guilds.RRPH)).getTextChannelById(Tokens.channels.get(Channels.MEMEHELL)).sendMessage(line).queue();
         }
         in.close();
         System.exit(0);

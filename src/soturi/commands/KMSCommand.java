@@ -4,9 +4,9 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  * @author qanazoga
- * @version 11/20/2016
+ * @version 12/17/2016
  */
-public class KillMyselfCommand implements Command{
+public class KMSCommand implements Command{
     
     @Override
     public String help() {
