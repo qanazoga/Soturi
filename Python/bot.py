@@ -33,7 +33,7 @@ with open("config.json") as file:
     config = json.load(file)
 
 token = config["token"]
-prefix = config["token"]
+prefix = config["prefix"]
 
 bot = SoturiBot(prefix)
 
