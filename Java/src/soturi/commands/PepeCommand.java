@@ -7,7 +7,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  * @author qanazoga
- * @version 11/20/2016
+ * @version 4/22/2017
  */
 public class PepeCommand implements Command {
     @Override
@@ -18,8 +18,10 @@ public class PepeCommand implements Command {
     @Override
     public void action(MessageReceivedEvent e) {
         ArrayList<File> pepes = new ArrayList<>();
+        Random rand = new Random();
+        
         try {
-            File pepeFolder = new File("src/pepes");
+            File pepeFolder = new File("data/img/pepe");
             if (pepeFolder.exists()) {
                 try {
                     for (File pepe : pepeFolder.listFiles()) {
@@ -28,7 +30,7 @@ public class PepeCommand implements Command {
                 } catch (Exception ex) {
                     System.out.println("[ERROR] Pepes not found!");
                 }
-                Random rand = new Random();
+                
                 e.getChannel().sendFile(pepes.get(rand.nextInt(pepes.size())), null).queue();
             }
         } catch (Exception ex) {

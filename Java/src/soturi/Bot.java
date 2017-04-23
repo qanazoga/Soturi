@@ -12,7 +12,7 @@ import soturi.Tokens.*;
 
 /**
  * @author qanazoga
- * @version 11/20/2016
+ * @version 4/22/2017
  */
 public class Bot {
 	private static JDA jda;
@@ -41,10 +41,12 @@ public class Bot {
 		// This section lets you send messages to RRPH.
         Scanner in = new Scanner(System.in);
         String line = " ";
-        while (line.equalsIgnoreCase("quit") == false) {
+        while (!line.equalsIgnoreCase("quit")) {
             line = " ";
             line = in.nextLine();
-            if (!line.isEmpty()) jda.getGuildById(Tokens.guilds.get(Guilds.RRPH)).getTextChannelById(Tokens.channels.get(Channels.MEMEHELL)).sendMessage(line).queue();
+            if (!line.isEmpty()) {
+            	jda.getGuildById(Tokens.guilds.get(Guilds.RRPH)).getTextChannelById(Tokens.channels.get(Channels.MEMEHELL)).sendMessage(line).queue();
+            }
         }
         in.close();
         System.exit(0);

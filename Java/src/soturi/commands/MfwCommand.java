@@ -7,7 +7,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 /**
  * @author qanazoga
- * @version 11/20/2016
+ * @version 4/22/2017
  */
 public class MFWCommand implements Command {
     @Override
@@ -19,7 +19,7 @@ public class MFWCommand implements Command {
     public void action(MessageReceivedEvent e) {
         ArrayList<File> mfw = new ArrayList<>();
         try {
-            File mfwFolder = new File("src/mfw");
+            File mfwFolder = new File("data/img/mfw");
             if (mfwFolder.exists()) {
                 try {
                     for (File pepe : mfwFolder.listFiles()) {

@@ -6,7 +6,7 @@ import soturi.Bot;
 
 /**
  * @author qanazoga
- * @version 11/20/2016
+ * @version 4/22/2017
  */
 public class HelpCommand implements Command {
     

@@ -10,7 +10,7 @@ import soturi.Tokens.*;
 
 /**
  * @author qanazoga
- * @version 11/20/2016
+ * @version 4/22/2017
  */
 public class BotListener extends ListenerAdapter {
 
@@ -21,7 +21,7 @@ public class BotListener extends ListenerAdapter {
         // Make sure the bot isn't the author before you do anything else.
         if (event.getAuthor().getId() != event.getJDA().getSelfUser().getId()) {
         	// Logs the message.
-            System.out.println(">>> " + event.getAuthor().getName() + ": " + event.getMessage().getContent());
+            System.out.println(event.getAuthor().getName() + ":\n" + event.getMessage().getContent() + "\n");
             
             // Looks for commands in the message.
             for (Map.Entry<String, Command> entry : Bot.getCommands().entrySet()) {
