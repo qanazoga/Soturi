@@ -6,10 +6,10 @@ import java.util.Random;
 
 /**
  * @author qanazoga
- * @version 4/22/2017
+ * @version 4/24/2017
  */
 public class KYSCommand implements Command {
-	Random rand;
+	Random rand = new Random();
 	
     @Override
     public String help() {
@@ -18,8 +18,10 @@ public class KYSCommand implements Command {
     
     @Override
     public void action(MessageReceivedEvent e) {
+    	
     	String message = "";
-        if (!e.getMessage().getMentionedUsers().isEmpty()) {
+        
+    	if (!e.getMessage().getMentionedUsers().isEmpty()) {
             message += "Hey, ";
             for (User u : e.getMessage().getMentionedUsers()) {
                 message += u.getAsMention() + ", ";
@@ -27,12 +29,8 @@ public class KYSCommand implements Command {
             message += "here's some free advice.\n";
         }
         
-        rand = new Random();
-        
-        switch (rand.nextInt(2) + 1) {
-        case 1: message += "https://youtu.be/ByC8sRdL-Ro"; break;
-        default: message += "https://youtu.be/2dbR2JZmlWo"; break;
-        }
+        String[] URLs = {"https://youtu.be/ByC8sRdL-Ro", "https://youtu.be/2dbR2JZmlWo"};        
+        message += URLs[rand.nextInt(URLs.length)];
         
         e.getChannel().sendMessage(message).queue();
     }

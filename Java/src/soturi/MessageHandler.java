@@ -7,16 +7,15 @@ import soturi.Tokens.*;
 
 /**
  * @author qanazoga
- * @version 4/22/2017
+ * @version 4/24/2017
  */
 public class MessageHandler {
 	Random rand = new Random();
 	String lcMessage;
-	String response;
-	public MessageHandler(MessageReceivedEvent event) {
-		lcMessage = event.getMessage().getContent().toLowerCase();
+	public MessageHandler(MessageReceivedEvent e) {
+		lcMessage = e.getMessage().getContent().toLowerCase();
 		
-		if(
+		if (
 			lcMessage.contains("fuck u") || 
             lcMessage.contains("fuk u") ||
             lcMessage.contains("fuq u") ||
@@ -28,25 +27,30 @@ public class MessageHandler {
             lcMessage.contains("hh q") ||
             lcMessage.contains("fh q")
 		) {
-			response = "fuck u";
-			event.getChannel().sendMessage(response).queue();
-			response = "";
+			e.getChannel().sendMessage("fuck u").queue();
+			
 		}
 		
 		if (
-				event.getAuthor().getId().equals(Tokens.fucbois.get(Fucbois.CHANDLER))&&
-				(lcMessage.contains("melly") || lcMessage.contains("mel")) &&
-				(lcMessage.contains("need") || lcMessage.contains("want") || lcMessage.contains("asked")) || lcMessage.contains("snug") || lcMessage.contains("hug")
-			) event.getChannel().sendMessage("\\*whip cracks*").queue();
+			lcMessage.contains("fuck off")
+			) {
+			e.getChannel().sendMessage("fuck in ( ͡° ͜ʖ ͡°)").queue();	
+		}
 		
 		if (
-				event.getAuthor().getId().equals(Tokens.fucbois.get(Fucbois.BILLY))&&
+				e.getAuthor().getId().equals(Tokens.fucbois.get(Fucbois.CHANDLER))&&
+				(lcMessage.contains("melly") || lcMessage.contains("mel")) &&
+				(lcMessage.contains("need") || lcMessage.contains("want") || lcMessage.contains("asked")) || lcMessage.contains("snug") || lcMessage.contains("hug")
+			) e.getChannel().sendMessage("\\*whip cracks*").queue();
+		
+		if (
+				e.getAuthor().getId().equals(Tokens.fucbois.get(Fucbois.BILLY))&&
 				lcMessage.contains("@everyone")
 				) try {
-				event.getChannel().sendFile(new File("data/img/billy.png"), null).queue();
-			} catch (Exception e) {
+				e.getChannel().sendFile(new File("data/img/billy.png"), null).queue();
+			} catch (Exception ex) {
 				System.out.println("[ERROR] Something goofed when Billy mentioned @everyone!");
-				e.printStackTrace();
+				ex.printStackTrace();
 			}
 		
 		if ( 
@@ -54,11 +58,12 @@ public class MessageHandler {
 				&& (lcMessage.contains("you") || lcMessage.contains(" ur "))
 				&& lcMessage.contains("name")
 			) {
-			event.getChannel().sendMessage("My real name is " + Tokens.realName).queue();
+			e.getChannel().sendMessage("My real name is " + Tokens.realName).queue();
 		}
 		
-		if (lcMessage.contains("member when") || lcMessage.contains("member wen") || (lcMessage.contains("member") && lcMessage.contains("?"))) {
-			event.getChannel().sendMessage("Ooh, I 'member!").queue();
+		if (lcMessage.contains("member when") || lcMessage.contains("member wen") || (lcMessage.contains("member") && lcMessage.contains("?"))) {			
+			String[] responses = {"Ooh, I 'member!", "Yeah, I 'member!"};			
+	        e.getChannel().sendMessage(responses[rand.nextInt(responses.length)]).queue();
 		}
 				
 	}
