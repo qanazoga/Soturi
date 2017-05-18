@@ -1,10 +1,11 @@
-package soturi.commands;
+package soturi.commands.RRPH;
 
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import soturi.commands.Command;
 
 /**
  * @author qanazoga

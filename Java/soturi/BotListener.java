@@ -10,50 +10,50 @@ import soturi.Tokens.*;
 
 /**
  * @author qanazoga
- * @version 4/22/2017
+ * @version 5/18/2017
  */
 public class BotListener extends ListenerAdapter {
 
     @Override
-    public void onMessageReceived(MessageReceivedEvent event) {
+    public void onMessageReceived(MessageReceivedEvent e) {
         Boolean noCommand = true;
         
         // Make sure the bot isn't the author before you do anything else.
-        if (event.getAuthor().getId() != event.getJDA().getSelfUser().getId()) {
+        if (!e.getAuthor().getId().equals(e.getJDA().getSelfUser().getId())) {
         	// Logs the message.
-            System.out.println(event.getAuthor().getName() + ":\n" + event.getMessage().getContent() + "\n");
+            System.out.println(e.getAuthor().getName() + ":\n" + e.getMessage().getContent() + "\n");
             
             // Looks for commands in the message.
             for (Map.Entry<String, Command> entry : Bot.getCommands().entrySet()) {
-                if (event.getMessage().getContent().toLowerCase().contains(entry.getKey().toString())) {
+                if (e.getMessage().getContent().toLowerCase().contains(entry.getKey().toString())) {
                     noCommand = false;
-                	entry.getValue().action(event);
+                	entry.getValue().action(e);
                 }
             }
             
             // Forwards the message to the non-command message handler.
             if (noCommand) {
-            	new MessageHandler(event);
+            	new MessageHandler(e);
             }            
         }
     }
     
     @Override
-    public void onGuildMemberJoin(GuildMemberJoinEvent event) {
+    public void onGuildMemberJoin(GuildMemberJoinEvent e) {
     	// Gives fucbois basic permissions in RRPH
-    	if (event.getGuild().getId().equals(Tokens.guilds.get(Guilds.RRPH))) {
-    		System.out.println("[A USER HAS JOINED RRPH]");
+    	if (e.getGuild().getId().equals(Tokens.guilds.get(Guilds.RRPH))) {
+    		System.out.println("[A user has joined RRPH!]");
     		for (String id : Tokens.fucbois.values()) {
-    			if (id.equals(event.getMember().getUser().getId())) {
-    				System.out.println("[JOINED USER IS A FUCBOI]");
-    				event.getGuild().getController().addRolesToMember(event.getMember(), event.getGuild().getRoleById("145992439977476097")).queue();
+    			if (id.equals(e.getMember().getUser().getId())) {
+    				System.out.println("[The user is a @fucboi!\n]");
+    				e.getGuild().getController().addRolesToMember(e.getMember(), e.getGuild().getRoleById("145992439977476097")).queue();
     			}
     		}
     	}
     }
     
     @Override
-    public void onReady(ReadyEvent event) {
-        System.out.println("Successfully logged in as " + event.getJDA().getSelfUser().getName());
+    public void onReady(ReadyEvent e) {
+        System.out.println("Successfully logged in as " + e.getJDA().getSelfUser().getName());
     }
 }

@@ -7,7 +7,7 @@ import soturi.Tokens.*;
 
 /**
  * @author qanazoga
- * @version 4/24/2017
+ * @version 5/18/2017
  */
 public class MessageHandler {
 	Random rand = new Random();

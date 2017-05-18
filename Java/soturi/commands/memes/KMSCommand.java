@@ -1,6 +1,7 @@
-package soturi.commands;
+package soturi.commands.memes;
 
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import soturi.commands.Command;
 
 /**
  * @author qanazoga

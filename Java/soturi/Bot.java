@@ -8,11 +8,18 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Game;
 import soturi.commands.*;
+import soturi.commands.RRPH.KickRaiderCommand;
+import soturi.commands.memes.KMSCommand;
+import soturi.commands.memes.KYSCommand;
+import soturi.commands.memes.MFWCommand;
+import soturi.commands.memes.PepeCommand;
+import soturi.moderation.RRPH.AutoMod;
+import soturi.moderation.RRPH.Librarian;
 import soturi.Tokens.*;
 
 /**
  * @author qanazoga
- * @version 4/22/2017
+ * @version 5/18/2017
  */
 public class Bot {
 	private static JDA jda;
@@ -30,8 +37,15 @@ public class Bot {
         
 		// Try logging in.
 		try {
-			 jda = new JDABuilder(AccountType.BOT).addListener(new BotListener()).setToken(Tokens.botToken).buildBlocking();
-			 jda.setAutoReconnect(true);
+			 jda = new JDABuilder(AccountType.BOT)
+					 .setToken(Tokens.botToken)
+					 .addEventListener(
+							 new BotListener(),
+							 new Librarian(),
+							 new AutoMod()
+							 )					 
+					 .setAutoReconnect(true)
+					 .buildBlocking();
 			 jda.getPresence().setGame(Game.of(">help"));
 		 } catch(Exception e) {
 			 System.out.println("[CRITICAL FAILURE] LOGIN FAILED!!!");
