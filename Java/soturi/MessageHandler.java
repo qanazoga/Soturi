@@ -38,12 +38,6 @@ public class MessageHandler {
 		}
 		
 		if (
-				e.getAuthor().getId().equals(Tokens.fucbois.get(Fucbois.CHANDLER))&&
-				(lcMessage.contains("melly") || lcMessage.contains("mel")) &&
-				(lcMessage.contains("need") || lcMessage.contains("want") || lcMessage.contains("asked")) || lcMessage.contains("snug") || lcMessage.contains("hug")
-			) e.getChannel().sendMessage("\\*whip cracks*").queue();
-		
-		if (
 				e.getAuthor().getId().equals(Tokens.fucbois.get(Fucbois.BILLY))&&
 				lcMessage.contains("@everyone")
 				) try {

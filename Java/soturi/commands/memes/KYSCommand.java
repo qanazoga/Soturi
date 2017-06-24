@@ -34,7 +34,7 @@ public class KYSCommand implements Command {
         String[] URLs = {
     		"https://youtu.be/ByC8sRdL-Ro", "https://youtu.be/2dbR2JZmlWo",
     		"https://youtu.be/p-zZ6G-23Yg", "http://i.imgur.com/2aSJFFv.jpg",
-    		"https://i.redd.it/hcjksye2fhxy.jpg"
+    		"https://i.redd.it/hcjksye2fhxy.jpg", "http://www.kysexpress.com/wp-content/uploads/2015/10/KYS-LOGO.png"
         };
         
         message += URLs[rand.nextInt(URLs.length)];

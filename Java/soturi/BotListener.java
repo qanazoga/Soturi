@@ -43,12 +43,15 @@ public class BotListener extends ListenerAdapter {
     	// Gives fucbois basic permissions in RRPH
     	if (e.getGuild().getId().equals(Tokens.guilds.get(Guilds.RRPH))) {
     		System.out.println("[A user has joined RRPH!]");
-    		for (String id : Tokens.fucbois.values()) {
-    			if (id.equals(e.getMember().getUser().getId())) {
-    				System.out.println("[The user is a @fucboi!\n]");
-    				e.getGuild().getController().addRolesToMember(e.getMember(), e.getGuild().getRoleById("145992439977476097")).queue();
-    			}
+    		if (Tokens.fucbois.values().contains(e.getMember().getUser().getId())) {
+    			System.out.println("[User is a fucboi!]");
+    			e.getGuild().getController().addRolesToMember(e.getMember(), e.getGuild().getRolesByName("fucbois", true).get(0));
+    			e.getGuild().getTextChannelsByName("memehell", true).get(0).sendMessage(e.getMember().getEffectiveName() + " has returned to the server.").queue();
+    		} else { 
+    			e.getGuild().getController().addRolesToMember(e.getMember(), e.getGuild().getRolesByName("raiders", true).get(0));
+    			e.getGuild().getTextChannelsByName("memehell", true).get(0).sendMessage(e.getMember().getEffectiveName() + " has joined the server.").queue();
     		}
+    		
     	}
     }
     

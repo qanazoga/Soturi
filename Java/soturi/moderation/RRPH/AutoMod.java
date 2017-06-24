@@ -2,6 +2,8 @@ package soturi.moderation.RRPH;
 
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import soturi.Tokens;
+import soturi.Tokens.Guilds;
 
 /** 
  * @author qanazoga
@@ -22,7 +24,8 @@ public class AutoMod extends ListenerAdapter {
 	
 	@Override
     public void onMessageReceived(MessageReceivedEvent e) {
-		if (!e.getAuthor().equals(e.getJDA().getSelfUser())) {
+		
+		if ((!e.getAuthor().equals(e.getJDA().getSelfUser()))  && e.getGuild().getId().equals(Tokens.guilds.get(Guilds.RRPH))) {
 			
 			if (!e.getMessage().getMentionedUsers().isEmpty()) {
 				mentioncount++;
@@ -60,7 +63,7 @@ public class AutoMod extends ListenerAdapter {
 				"Mention spamming will not be tollerated in Rainbow Rumpus Party Hell\n" +
 				"You have been silenced until further notice.").complete();
 		
-		e.getChannel().sendMessage("[AutoMod now silencing " + e.getAuthor().getAsMention() + " for mention spamming]").queue();
+		e.getChannel().sendMessage("[Soturi AutoMod now silencing " + e.getAuthor().getAsMention() + " for mention spamming]").queue();
 	}
 	
 	
@@ -70,7 +73,7 @@ public class AutoMod extends ListenerAdapter {
 				"Mention spamming will not be tollerated in Rainbow Rumpus Party Hell\n" +
 				"You have been banned.").queue();
 		
-		e.getChannel().sendMessage("[AutoMod now banning " + e.getAuthor().getAsMention() + " for mention spamming]").queue();
+		e.getChannel().sendMessage("[Soturi AutoMod now banning " + e.getAuthor().getAsMention() + " for mention spamming]").queue();
 		e.getGuild().getController().ban(e.getMember(), 0).queue();
 	}
 }
