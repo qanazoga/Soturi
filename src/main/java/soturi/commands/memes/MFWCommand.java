@@ -7,8 +7,9 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import soturi.commands.Command;
 
 /**
+ * 
  * @author qanazoga
- * @version 4/26/2017
+ * @version 07/15/2017
  */
 public class MFWCommand implements Command {
     @Override
@@ -19,17 +20,33 @@ public class MFWCommand implements Command {
     @Override
     public void action(MessageReceivedEvent e) {
         ArrayList<File> mfw = new ArrayList<>();
+        ArrayList<File> nonImages = new ArrayList<>();
         try {
             File mfwFolder = new File("data/img/mfw");
             if (mfwFolder.exists()) {
                 try {
-                    for (File pepe : mfwFolder.listFiles()) {
-                        mfw.add(pepe);
+                    for (File img : mfwFolder.listFiles()) {
+                        mfw.add(img);
+                    }
+                    
+                    // Remove all non-image files
+                    for (File img : mfw) {
+                    	if (
+                    		img.getName().toLowerCase().endsWith(".jpeg") 
+                    		|| img.getName().toLowerCase().endsWith(".jpg")
+                    		|| img.getName().toLowerCase().endsWith(".png")
+                    		|| img.getName().toLowerCase().endsWith(".gif")
+                    		) {
+                    		
+                    	} else {
+                    		nonImages.add(img);
+                    	}
                     }
                 } catch (Exception ex) {
                     System.out.println("[ERROR] mfw folder is empty!");
                     e.getChannel().sendMessage("mfw I can't find my pics ;~;").queue();
                 }
+                mfw.removeAll(nonImages);
                 Random rand = new Random();
                 e.getChannel().sendFile(mfw.get(rand.nextInt(mfw.size())), null).queue();
             } else {

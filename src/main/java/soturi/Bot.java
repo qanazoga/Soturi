@@ -12,14 +12,14 @@ import soturi.commands.RRPH.KickRaiderCommand;
 import soturi.commands.memes.KMSCommand;
 import soturi.commands.memes.KYSCommand;
 import soturi.commands.memes.MFWCommand;
-import soturi.commands.memes.PepeCommand;
 import soturi.moderation.RRPH.AutoMod;
 import soturi.moderation.RRPH.Librarian;
 import soturi.Tokens.*;
 
 /**
+ * 
  * @author qanazoga
- * @version 5/18/2017
+ * @version 07/15/2017
  */
 public class Bot {
 	private static JDA jda;
@@ -31,7 +31,6 @@ public class Bot {
         commands.put(">kickraider", new KickRaiderCommand());
         commands.put(">kms", new KMSCommand());
         commands.put(">kys", new KYSCommand());
-        commands.put(">pepe", new PepeCommand());
         commands.put(">mfw", new MFWCommand());
         commands.put(">roll", new RollCommand());
         

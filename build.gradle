@@ -1,0 +1,23 @@
+
+apply plugin: 'java'
+
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+	compile 'com.sedmelluq:lavaplayer:1.2.36'
+	compile 'net.dv8tion:JDA:3.0.0_186'
+    compile 'org.slf4j:slf4j-api:1.7.21'
+    testCompile 'junit:junit:4.12'
+}
+
+jar {
+    baseName = project.name
+    manifest {
+    	attributes ('Implementation-Title': 'Soturi',
+        	'Implementation-Version': '1.0.0',
+        	'Main-Class': "net.dv8tion.discord.Yui")
+    }
+}

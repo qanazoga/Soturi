@@ -9,8 +9,9 @@ import soturi.commands.*;
 import soturi.Tokens.*;
 
 /**
+ * 
  * @author qanazoga
- * @version 5/18/2017
+ * @version 07/15/2017
  */
 public class BotListener extends ListenerAdapter {
 
@@ -45,10 +46,10 @@ public class BotListener extends ListenerAdapter {
     		System.out.println("[A user has joined RRPH!]");
     		if (Tokens.fucbois.values().contains(e.getMember().getUser().getId())) {
     			System.out.println("[User is a fucboi!]");
-    			e.getGuild().getController().addRolesToMember(e.getMember(), e.getGuild().getRolesByName("fucbois", true).get(0));
+    			e.getGuild().getController().addRolesToMember(e.getMember(), e.getGuild().getRolesByName("fucbois", true).get(0)).queue();
     			e.getGuild().getTextChannelsByName("memehell", true).get(0).sendMessage(e.getMember().getEffectiveName() + " has returned to the server.").queue();
     		} else { 
-    			e.getGuild().getController().addRolesToMember(e.getMember(), e.getGuild().getRolesByName("raiders", true).get(0));
+    			e.getGuild().getController().addRolesToMember(e.getMember(), e.getGuild().getRolesByName("raiders", true).get(0)).queue();
     			e.getGuild().getTextChannelsByName("memehell", true).get(0).sendMessage(e.getMember().getEffectiveName() + " has joined the server.").queue();
     		}
     		
