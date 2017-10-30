@@ -8,18 +8,17 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Game;
 import soturi.commands.*;
-import soturi.commands.RRPH.KickRaiderCommand;
-import soturi.commands.memes.KMSCommand;
-import soturi.commands.memes.KYSCommand;
+import soturi.commands.RRPH.AbooseModeCommand;
 import soturi.commands.memes.MFWCommand;
 import soturi.moderation.RRPH.AutoMod;
 import soturi.moderation.RRPH.Librarian;
+import soturi.moderation.RRPH.RoleSignupSystem;
 import soturi.Tokens.*;
 
 /**
  * 
  * @author qanazoga
- * @version 07/15/2017
+ * @version 08/20/2017
  */
 public class Bot {
 	private static JDA jda;
@@ -28,11 +27,10 @@ public class Bot {
 	public static void main(String[] args) {
 		// Add commands here.
         commands.put(">help", new HelpCommand());
-        commands.put(">kickraider", new KickRaiderCommand());
-        commands.put(">kms", new KMSCommand());
-        commands.put(">kys", new KYSCommand());
         commands.put(">mfw", new MFWCommand());
         commands.put(">roll", new RollCommand());
+        commands.put(">vote", new VoteCommand());
+        commands.put(">aboosemode", new AbooseModeCommand());
         
 		// Try logging in.
 		try {
@@ -41,7 +39,8 @@ public class Bot {
 					 .addEventListener(
 							 new BotListener(),
 							 new Librarian(),
-							 new AutoMod()
+							 new AutoMod(),
+							 new RoleSignupSystem()
 							 )					 
 					 .setAutoReconnect(true)
 					 .buildBlocking();

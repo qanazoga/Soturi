@@ -15,7 +15,7 @@ public class KickRaiderCommand implements Command{
 	
 	@Override
 	public String help() {
-		return "<raider ID>: Kick a raider from the server. Requires the @fucboi role to use.";
+		return "<raider ID>: Kick a guest from the server. Requires the @fucboi role to use.";
     }
 	
 	@Override
@@ -31,7 +31,7 @@ public class KickRaiderCommand implements Command{
 
 				// Tell the fucboi that they need to target someone.
 				if (message.getMentionedUsers().isEmpty()) {
-					channel.sendMessage("You need to target a raider!").queue();
+					channel.sendMessage("You need to target a guest!").queue();
 				} else {
 					
 					for (User u : e.getMessage().getMentionedUsers()) {

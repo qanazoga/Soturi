@@ -6,7 +6,7 @@ import soturi.Bot;
 
 /**
  * @author qanazoga
- * @version 4/22/2017
+ * @version 07/22/2017
  */
 public class HelpCommand implements Command {
     
@@ -25,6 +25,10 @@ public class HelpCommand implements Command {
         
         allHelps += "```";
         
-        e.getAuthor().getPrivateChannel().sendMessage(allHelps).queue();
+        final String compiledHelps = allHelps;
+        
+        e.getAuthor().openPrivateChannel().queue(c -> {
+        	c.sendMessage(compiledHelps).queue();
+        });
     }
 }

@@ -49,7 +49,7 @@ public class BotListener extends ListenerAdapter {
     			e.getGuild().getController().addRolesToMember(e.getMember(), e.getGuild().getRolesByName("fucbois", true).get(0)).queue();
     			e.getGuild().getTextChannelsByName("memehell", true).get(0).sendMessage(e.getMember().getEffectiveName() + " has returned to the server.").queue();
     		} else { 
-    			e.getGuild().getController().addRolesToMember(e.getMember(), e.getGuild().getRolesByName("raiders", true).get(0)).queue();
+    			e.getGuild().getController().addRolesToMember(e.getMember(), e.getGuild().getRolesByName("guests", true).get(0)).queue();
     			e.getGuild().getTextChannelsByName("memehell", true).get(0).sendMessage(e.getMember().getEffectiveName() + " has joined the server.").queue();
     		}
     		
