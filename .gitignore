@@ -1,9 +1,0 @@
-*.pyc
-
-.idea
-
-/bin
-
-config.json
-
-tokens.java
