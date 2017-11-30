@@ -4,7 +4,7 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.Entities;
 using System.Linq;
 
-namespace Soturi.Utils
+namespace Soturi4.Utils
 {
     class Bot
     {

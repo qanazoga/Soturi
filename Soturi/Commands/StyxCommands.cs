@@ -1,10 +1,10 @@
-﻿using Soturi.Utils;
+﻿using Soturi4.Utils;
 using DSharpPlus.CommandsNext;
 using System.Threading.Tasks;
 using DSharpPlus.Entities;
 using DSharpPlus.CommandsNext.Attributes;
 
-namespace Soturi
+namespace Soturi4
 {
     public class StyxCommands
     {

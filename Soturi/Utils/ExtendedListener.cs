@@ -1,14 +1,15 @@
 ﻿using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
-using Soturi.Background;
-using Soturi.Commands;
+using Soturi4.Background;
+using Soturi4.Commands;
+using Soturi4.Commands.Warframe;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Soturi.Utils
+namespace Soturi4.Utils
 {
     class ExtendedListener
     {
@@ -19,7 +20,15 @@ namespace Soturi.Utils
                 Bot.LogMessage("Successfully Connected");
 
                 Bot.LogMessage("Registering Commands...");
-                Bot.RegisterAllCommands(Program.Commands, new AdminCommands(), new DiplomacyCommands(), new MiscCommands(), new StyxCommands());
+                Bot.RegisterAllCommands(
+                    Program.Commands,
+                    new AdminCommands(),
+                    new DiplomacyCommands(),
+                    new InfoCommands(),
+                    new MiscCommands(),
+                    new StyxCommands(),
+                    new WarframeCommands()
+                    );
                 Bot.LogMessage($"Successfully registerd {Program.Commands.RegisteredCommands.Count} commands:");
                 foreach (String command in Program.Commands.RegisteredCommands.Keys)
                     Bot.LogMessage($"\t{command}");
@@ -27,6 +36,8 @@ namespace Soturi.Utils
                 var listeners = new RRPHListeners(Program.Client);
 
                 await client.UpdateStatusAsync(new DiscordActivity(">help"));
+
+                Program.StartTime = DateTime.Now;
 
                 Bot.LogMessage("Setup Complete.");
             };

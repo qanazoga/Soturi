@@ -2,18 +2,18 @@
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
-using Soturi.Utils;
+using Soturi4.Utils;
 using System;
 using System.Threading;
+using System.IO;
 
-namespace Soturi.Commands
+namespace Soturi4.Commands
 {
     class AdminCommands
     {
 
-        [Command("rrphsudo"), RequireOwner]
-        [Aliases("aboosemode", "sudo")]
-        [Description("Use if you're qanazoga and you need to aboose some chats.")]
+        [Command("sudo"), RequireOwner]
+        [Description("Admin role in RainbowRumpusPartyHell")]
         public async Task AbooseMode(CommandContext ctx)
         {
             if (!Bot.InRRPH(ctx))
@@ -86,8 +86,6 @@ namespace Soturi.Commands
             }
         }
 
-
-
         [Command("shutdown"), RequireOwner]
         [Description("Gracefully shutdown this bot, and all connections")]
         public async Task ShutDown(CommandContext ctx)
@@ -95,6 +93,25 @@ namespace Soturi.Commands
             await ctx.RespondAsync("Gracefully shutting down...");
             await ctx.Client.DisconnectAsync();
             Environment.Exit(0);
+        }
+
+        [Command("deletemfw"), RequireOwner]
+        [Description("Deletes <target> reaction picture from the MFW folder")]
+        public async Task DeleteMFW(CommandContext ctx, [Description("The name of the file to be deleted")] string filename)
+        {
+            var path = "data/img/mfw/"+filename;
+            if (File.Exists(path))
+            {
+                DiscordMessage msg = await ctx.RespondWithFileAsync(path, "Press 🇫 to pay respects to this fallen mfw");
+                await msg.CreateReactionAsync(DiscordEmoji.FromUnicode("🇫"));
+
+                Bot.LogMessage($"Deleting {filename}");
+                File.Delete(path);
+            }
+            else
+            {
+                await ctx.RespondAsync("That image doesn't exist.");
+            }
         }
 
     }

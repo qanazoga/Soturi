@@ -3,3 +3,8 @@
 ################################################################################
 
 /.vs
+/Soturi/bin/Debug/netcoreapp2.0/netcoreapp2.0
+/Soturi/data/config
+/Soturi/obj
+/Soturi/bin/Release
+/Soturi/Properties/PublishProfiles

@@ -1,10 +1,10 @@
 ﻿using DSharpPlus;
 using Newtonsoft.Json;
-using Soturi.Utils;
+using Soturi4.Utils;
 using System;
 using System.IO;
 
-namespace Soturi.Background
+namespace Soturi4.Background
 {
     class RoleSignupSystem
     {

@@ -1,8 +1,8 @@
 ﻿using DSharpPlus;
 using DSharpPlus.Entities;
-using Soturi.Utils;
+using Soturi4.Utils;
 
-namespace Soturi.Background
+namespace Soturi4.Background
 {
     class FreeGameNewsMod
     {

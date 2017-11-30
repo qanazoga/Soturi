@@ -2,12 +2,12 @@
 using DSharpPlus.CommandsNext.Attributes;
 using System.Threading.Tasks;
 using DSharpPlus.Entities;
-using Soturi.Utils;
+using Soturi4.Utils;
 using System.Linq;
 using DSharpPlus;
 using System.Collections.Generic;
 
-namespace Soturi.Commands
+namespace Soturi4.Commands
 {
 
     // TODO: Like all of these can be automated.

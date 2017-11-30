@@ -1,11 +1,11 @@
 ﻿using DSharpPlus;
 using DSharpPlus.Entities;
-using Soturi.Utils;
+using Soturi4.Utils;
 using System;
 using Newtonsoft.Json;
 using System.IO;
 
-namespace Soturi.Background
+namespace Soturi4.Background
 {
     class RRPHListeners
     {

@@ -1,13 +1,13 @@
 ﻿using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using Newtonsoft.Json;
-using Soturi.Utils;
+using Soturi4.Utils;
 using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Soturi
+namespace Soturi4
 {
     class Program
     {
@@ -16,6 +16,7 @@ namespace Soturi
         public static ExtendedListener Logger { get; set; }
         public static CommandsNextExtension Commands { get; set; }
         public static Config Config { get; set; }
+        public static DateTime StartTime { get; set; }
 
         static void Main(string[] args)
         {
