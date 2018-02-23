@@ -6,6 +6,7 @@ from discord.ext import commands
 
 
 # to expose to the eval command
+from discord.utils import get
 
 
 class REPL:
