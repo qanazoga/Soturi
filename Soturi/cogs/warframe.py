@@ -1,6 +1,7 @@
 from discord.ext import commands
 from Soturi.soturi_bot import SoturiBot
 from Soturi.config.rrph_config import RRPH
+import traceback
 import feedparser
 import json
 import asyncio
@@ -58,20 +59,40 @@ class Warframe:
         with open('cogs/cogdata/warframe/needs.json', 'r+') as fp:
             data: list = json.load(fp)
 
-        if ctx.author.name not in [names for names in data]:
+        try:
+            if ctx.author.name not in [names for names in data]:
+                with open('cogs/cogdata/warframe/needs.json', 'w') as fp:
+                    data[ctx.author.name] = [need]
+                    json.dump(data, fp)
+                    await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
+            else:
+                with open('cogs/cogdata/warframe/needs.json', 'w') as fp:
+                    data[ctx.author.name].append(need)
+                    json.dump(data, fp)
+                    await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
+
+        except Exception:
+            await ctx.send(f'```\n{traceback.format_exc()}\n```')
+
+    @warframe.command(aliases=['unsub'])
+    async def unsubscribe(self, ctx, need):
+        with open('cogs/cogdata/warframe/needs.json') as fp:
+            data: list = json.load(fp)
+
+        try:
             with open('cogs/cogdata/warframe/needs.json', 'w') as fp:
-                data[ctx.author.name] = [need]
+                data[ctx.author.name].remove(need)
                 json.dump(data, fp)
-        else:
-            with open('cogs/cogdata/warframe/needs.json', 'w') as fp:
-                data[ctx.author.name].append(need)
-                json.dump(data, fp)
+                await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
 
+        except Exception:
+            await ctx.send(f'```\n{traceback.format_exc()}\n```')
 
-    @warframe.command()
-    async def unsubscribe(self, ctx, item):
-        ...
-
+    @warframe.command(aliases=['getsubs', 'get_subs', 'subs'])
+    async def get_subscriptions(self, ctx):
+        with open('cogs/cogdata/warframe/needs.json') as fp:
+            data: list = json.load(fp)
+            await ctx.send(data[ctx.author.name])
 
 
 def setup(bot):

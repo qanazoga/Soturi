@@ -56,9 +56,9 @@ class Admin:
         try:
             self.bot.load_extension(module)
         except Exception:
-            await ctx.send(f'```py\n{traceback.format_exc()}\n```')
+            await ctx.send(f'```\n{traceback.format_exc()}\n```')
         else:
-            await ctx.message.add_reaction('\N{OK HAND SIGN}')
+            await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
 
     @commands.is_owner()
     @commands.command(hidden=True)
@@ -67,9 +67,9 @@ class Admin:
         try:
             self.bot.unload_extension(module)
         except Exception:
-            await ctx.send(f'```py\n{traceback.format_exc()}\n```')
+            await ctx.send(f'```\n{traceback.format_exc()}\n```')
         else:
-            await ctx.message.add_reaction('\N{OK HAND SIGN}')
+            await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
 
     @commands.is_owner()
     @commands.command(name='reload', hidden=True)
@@ -79,9 +79,9 @@ class Admin:
             self.bot.unload_extension(module)
             self.bot.load_extension(module)
         except Exception:
-            await ctx.send(f'```py\n{traceback.format_exc()}\n```')
+            await ctx.send(f'```\n{traceback.format_exc()}\n```')
         else:
-            await ctx.message.add_reaction('\N{OK HAND SIGN}')
+            await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
 
     @commands.is_owner()
     @commands.command(hidden=True)
