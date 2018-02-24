@@ -28,13 +28,13 @@ class Warframe:
             for rssItem in new_items:
                 members_that_want = []
                 for member in warframe_channel.members:
-                    if member.name in registered_users:
-                        if [want for want in data[member.name] if want in rssItem.title.lower()]:
+                    if str(member.id) in registered_users:
+                        if [want for want in data[str(member.id)] if want in rssItem.title.lower()]:
                             members_that_want.append(member.mention)
 
                 if members_that_want:
                     await warframe_channel.send(f"{' '.join(members_that_want)},\n"
-                                                f"I think you might want this!\n"
+                                                f"**I think you might want this!**\n"
                                                 f"{rssItem.title}")
 
             [saved_items.append(item.guid) for item in new_items]
@@ -45,29 +45,35 @@ class Warframe:
 
     @commands.group(name='wf')
     async def warframe(self, ctx):
+        """Commands related to Warframe, run 'help wf' for more info"""
         ...
 
     @warframe.command(aliases=['sub'])
-    async def subscribe(self, ctx, need):
+    async def subscribe(self, ctx, *needs):
         """Subscribe to all references of anything you need in all alerts, invasions, or otherwise!
 
         If there are spaces in your needed item, put quotes around the whole thing. ex:
-        wf sub "orokin reactor".
-        """
-        need = need.lower()
+        wf subscribe "orokin reactor"
 
-        with open('cogs/cogdata/warframe/needs.json', 'r+') as fp:
+        You can subscribe to receive multiple items at a time; space seperate them, and follow the previous rule, ex:
+        wf subscribe "orokin reactor" "orokin catalyst" "forma"
+
+        (in this example, 'forma' technically did not need quotes, since it has no spaces, but ¯\_(ツ)_/¯)
+        """
+        needs = [need.lower() for need in needs]
+
+        with open('cogs/cogdata/warframe/needs.json', 'r') as fp:
             data: list = json.load(fp)
 
         try:
-            if ctx.author.name not in [names for names in data]:
+            if str(ctx.author.id) not in [ids for ids in data]:
                 with open('cogs/cogdata/warframe/needs.json', 'w') as fp:
-                    data[ctx.author.name] = [need]
+                    data[str(ctx.author.id)] = [needs]
                     json.dump(data, fp)
                     await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
             else:
                 with open('cogs/cogdata/warframe/needs.json', 'w') as fp:
-                    data[ctx.author.name].append(need)
+                    data[str(ctx.author.id)].extend(needs)
                     json.dump(data, fp)
                     await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
 
@@ -81,7 +87,7 @@ class Warframe:
 
         try:
             with open('cogs/cogdata/warframe/needs.json', 'w') as fp:
-                data[ctx.author.name].remove(need)
+                data[str(ctx.author.id)].remove(need)
                 json.dump(data, fp)
                 await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
 
@@ -92,7 +98,7 @@ class Warframe:
     async def get_subscriptions(self, ctx):
         with open('cogs/cogdata/warframe/needs.json') as fp:
             data: list = json.load(fp)
-            await ctx.send(data[ctx.author.name])
+            await ctx.send(data[str(ctx.author.id)])
 
 
 def setup(bot):
