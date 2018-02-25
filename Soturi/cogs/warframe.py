@@ -11,13 +11,13 @@ class Warframe:
 
     def __init__(self, bot: SoturiBot):
         self.bot = bot
-        self.feed = feedparser.parse("http://content.warframe.com/dynamic/rss.php")
         self.bot.loop.create_task(self.check_warframe_rss())
 
     async def check_warframe_rss(self):
         await self.bot.wait_until_ready()
         while not self.bot.is_closed():
-            entries = self.feed.entries
+            feed = feedparser.parse("http://content.warframe.com/dynamic/rss.php")
+            entries = feed.entries
             saved_items = [line.strip() for line in open('cogs/cogdata/warframe/guids.txt')]
             new_items = [entry for entry in entries if entry.guid not in saved_items]
             warframe_channel = self.bot.get_channel(RRPH.warframeChannel)
@@ -82,6 +82,7 @@ class Warframe:
 
     @warframe.command(aliases=['unsub'])
     async def unsubscribe(self, ctx, need):
+        """Unsubscribe from an"""
         with open('cogs/cogdata/warframe/needs.json') as fp:
             data: list = json.load(fp)
 
@@ -103,4 +104,3 @@ class Warframe:
 
 def setup(bot):
     bot.add_cog(Warframe(bot))
-

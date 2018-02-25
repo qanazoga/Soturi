@@ -12,7 +12,7 @@ class SoturiBot(Bot):
         await self.change_presence(game=game)
 
     async def on_message(self, message: discord.Message):
-        print(f"{message.author.name}: {message.content}")
+        print(f"\t{message.author.name}: {message.content}")
         await self.process_commands(message)
 
     def reload_extensions(self):
