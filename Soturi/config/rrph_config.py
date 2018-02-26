@@ -19,3 +19,4 @@ class RRPH:
     freeGameNewsChannel = rrph["free_game_news_channel"]
     warframeChannel = rrph["warframe_channel"]
     botDevChannel = rrph["bot_dev_channel"]
+    modChatChannel = rrph["mod_chat_channel"]

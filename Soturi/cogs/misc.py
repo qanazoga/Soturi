@@ -2,6 +2,7 @@ import random
 from Soturi.config.config import Config
 from Soturi.soturi_bot import SoturiBot
 from discord.ext import commands
+from discord import User
 
 
 class Misc:
@@ -46,6 +47,10 @@ class Misc:
             "Outlook not so good",
             "Very doubtful"
         ]))
+
+    @commands.command()
+    async def avatar(self, ctx: commands.Context, *target: User):
+        [await ctx.send(member.avatar_url) for member in target]
 
 
 def setup(bot):

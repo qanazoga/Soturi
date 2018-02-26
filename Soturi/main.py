@@ -5,5 +5,4 @@ config = Config()
 bot = SoturiBot(config.prefix)
 
 bot.reload_extensions()
-
 bot.run(config.token)
