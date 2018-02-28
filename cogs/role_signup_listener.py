@@ -1,6 +1,6 @@
 import json
-from Soturi.config.rrph_config import RRPH
-from Soturi.soturi_bot import SoturiBot
+from config.rrph_config import RRPH
+from soturi_bot import SoturiBot
 from discord.utils import get
 
 

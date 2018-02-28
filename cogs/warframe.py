@@ -1,6 +1,6 @@
 from discord.ext import commands
-from Soturi.soturi_bot import SoturiBot
-from Soturi.config.rrph_config import RRPH
+from soturi_bot import SoturiBot
+from config.rrph_config import RRPH
 import traceback
 import feedparser
 import json
@@ -33,11 +33,11 @@ class Warframe:
                             members_that_want.append(member.mention)
 
                 if members_that_want:
-                    await warframe_channel.send(f"{' '.join(members_that_want)},\n"
+                    await warframe_channel.send(f"{' '.join(set(members_that_want))},\n"
                                                 f"**I think you might want this!**\n"
                                                 f"{rssItem.title}")
 
-            [saved_items.append(item.guid) for item in new_items]
+            saved_items = [entry.guid for entry in feed.entries]
             with open('cogs/cogdata/warframe/guids.txt', 'w') as fp:
                 [fp.write(f"{item}\n") for item in saved_items]
 
@@ -86,14 +86,16 @@ class Warframe:
         with open('cogs/cogdata/warframe/needs.json') as fp:
             data: list = json.load(fp)
 
-        try:
-            with open('cogs/cogdata/warframe/needs.json', 'w') as fp:
-                data[str(ctx.author.id)].remove(need)
-                json.dump(data, fp)
-                await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
-
-        except Exception:
-            await ctx.send(f'```\n{traceback.format_exc()}\n```')
+        if need in data[str(ctx.author.id)]:
+            try:
+                with open('cogs/cogdata/warframe/needs.json', 'w') as fp:
+                    data[str(ctx.author.id)].remove(need)
+                    json.dump(data, fp)
+                    await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
+            except Exception:
+                await ctx.send(f'```\n{traceback.format_exc()}\n```')
+        else:
+            await ctx.send(f"You aren't subscribed to `{need}`.")
 
     @warframe.command(aliases=['getsubs', 'get_subs', 'subs'])
     async def get_subscriptions(self, ctx):

@@ -1,8 +1,8 @@
 import asyncio
 import traceback
-from Soturi.config.rrph_config import RRPH
-from Soturi.soturi_bot import SoturiBot
-from Soturi.utils.checks import is_in_guild
+from config.rrph_config import RRPH
+from soturi_bot import SoturiBot
+from utils.checks import is_in_guild
 from discord.ext import commands
 from discord.utils import get
 
@@ -16,6 +16,7 @@ class Admin:
     @commands.is_owner()
     @is_in_guild(RRPH.id)
     async def sudo(self, ctx: commands.Context):
+        """Gives you sudo permissions."""
         sudo = get(ctx.guild.roles, id=RRPH.sudoRole)
 
         if sudo in ctx.author.roles:
@@ -32,6 +33,7 @@ class Admin:
     @commands.group(invoke_without_command=True)
     @commands.is_owner()
     async def clean(self, ctx: commands.Context, num: int=100):
+            """Removes any number of messages (default 100)"""
             await ctx.channel.purge(limit=num+1)
 
     @clean.group()
@@ -84,7 +86,7 @@ class Admin:
             await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
 
     @commands.is_owner()
-    @commands.command(hidden=True)
+    @commands.command()
     async def add_this_cog(self, ctx: commands.Context, path):
         """Adds a cog sent to the bot."""
         if len(ctx.message.attachments) < 1:

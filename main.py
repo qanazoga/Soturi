@@ -1,5 +1,7 @@
-from Soturi.config.config import Config
-from Soturi.soturi_bot import SoturiBot
+#!/usr/bin/env python3
+
+from config.config import Config
+from soturi_bot import SoturiBot
 
 config = Config()
 bot = SoturiBot(config.prefix)
