@@ -45,7 +45,12 @@ class Warframe:
 
     @commands.group(name='wf')
     async def warframe(self, ctx):
-        """Commands related to Warframe, run 'help wf' for more info"""
+        """qanazoga's Warframe Alert System
+
+        qanazoga's pride and joy: Some items in Warframe only come from alerts, or are annoying to get anywhere else,
+        but alerts happen all day, and only a few have things you want, while the others are complete trash.
+        use the `subscribe` command to subscribe to just the alerts about the items you want.
+        """
         ...
 
     @warframe.command(aliases=['sub'])
@@ -63,7 +68,7 @@ class Warframe:
         needs = [need.lower() for need in needs]
 
         with open('cogs/cogdata/warframe/needs.json', 'r') as fp:
-            data: list = json.load(fp)
+            data = json.load(fp)
 
         try:
             if str(ctx.author.id) not in [ids for ids in data]:
@@ -82,9 +87,9 @@ class Warframe:
 
     @warframe.command(aliases=['unsub'])
     async def unsubscribe(self, ctx, need):
-        """Unsubscribe from an"""
+        """Unsubscribe from an item you're subscribed to."""
         with open('cogs/cogdata/warframe/needs.json') as fp:
-            data: list = json.load(fp)
+            data = json.load(fp)
 
         if need in data[str(ctx.author.id)]:
             try:
@@ -99,8 +104,9 @@ class Warframe:
 
     @warframe.command(aliases=['getsubs', 'get_subs', 'subs'])
     async def get_subscriptions(self, ctx):
+        """List all items you're subscribed to."""
         with open('cogs/cogdata/warframe/needs.json') as fp:
-            data: list = json.load(fp)
+            data = json.load(fp)
             await ctx.send(data[str(ctx.author.id)])
 
 
