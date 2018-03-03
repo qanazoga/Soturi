@@ -17,7 +17,7 @@ class Admin:
     @is_in_guild(RRPH.id)
     async def sudo(self, ctx: commands.Context):
         """Gives you sudo permissions."""
-        sudo = get(ctx.guild.roles, id=RRPH.sudoRole)
+        sudo = get(ctx.guild.roles, id=RRPH.sudo_role)
 
         if sudo in ctx.author.roles:
             await ctx.send("You're already `sudo`!")

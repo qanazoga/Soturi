@@ -8,15 +8,16 @@ class RRPH:
 
     id = rrph["id"]
 
-    sudoRole = rrph["sudo_role"]
-    adminRole = rrph["admin_role"]
-    modRole = rrph["mod_role"]
+    sudo_role = rrph["sudo_role"]
+    admin_role = rrph["admin_role"]
+    mod_role = rrph["mod_role"]
 
-    styxAdminRole = rrph["styx_admin_role"]
-    styxUserRole = rrph["styx_user_role"]
+    styx_admin_role = rrph["styx_admin_role"]
+    styx_user_role = rrph["styx_user_role"]
 
-    welcomeChannel = rrph["welcome_channel"]
-    freeGameNewsChannel = rrph["free_game_news_channel"]
-    warframeChannel = rrph["warframe_channel"]
-    botDevChannel = rrph["bot_dev_channel"]
-    modChatChannel = rrph["mod_chat_channel"]
+    welcome_channel = rrph["welcome_channel"]
+    free_game_news_channel = rrph["free_game_news_channel"]
+    warframe_channel = rrph["warframe_channel"]
+    warframe_alerts_channel = ["warframe_alerts_channel"]
+    bot_dev_channel = rrph["bot_dev_channel"]
+    mod_chat_channel = rrph["mod_chat_channel"]

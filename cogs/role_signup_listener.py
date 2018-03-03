@@ -1,7 +1,8 @@
-import json
 from config.rrph_config import RRPH
 from soturi_bot import SoturiBot
 from discord.utils import get
+from discord import Guild, Member
+import json
 
 
 class RoleSignupSystem:
@@ -10,7 +11,7 @@ class RoleSignupSystem:
         self.bot = bot
 
     async def on_raw_reaction_add(self, emoji, message_id, channel_id, user_id):
-        if channel_id != RRPH.welcomeChannel:
+        if channel_id != RRPH.welcome_channel:
             return
 
         with open("config/roles.json", "r") as file:
@@ -23,7 +24,7 @@ class RoleSignupSystem:
         await member.add_roles(role)
 
     async def on_raw_reaction_remove(self, emoji, message_id, channel_id, user_id):
-        if channel_id != RRPH.welcomeChannel:
+        if channel_id != RRPH.welcome_channel:
             return
 
         with open("config/roles.json", "r") as file:

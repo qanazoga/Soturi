@@ -5,6 +5,7 @@ import traceback
 import feedparser
 import json
 import asyncio
+import time
 
 
 class Warframe:
@@ -20,7 +21,7 @@ class Warframe:
             entries = feed.entries
             saved_items = [line.strip() for line in open('cogs/cogdata/warframe/guids.txt')]
             new_items = [entry for entry in entries if entry.guid not in saved_items]
-            warframe_channel = self.bot.get_channel(RRPH.warframeChannel)
+            warframe_channel = self.bot.get_channel(RRPH.warframe_alerts_channel)
             with open('cogs/cogdata/warframe/needs.json', 'r') as fp:
                 data = json.load(fp)
                 registered_users = [item for item in data]
@@ -108,6 +109,12 @@ class Warframe:
         with open('cogs/cogdata/warframe/needs.json') as fp:
             data = json.load(fp)
             await ctx.send(data[str(ctx.author.id)])
+
+    @warframe.command()
+    async def poe(self, ctx):
+        """Get the time on Cetus and Plains of Eidolon"""
+        first_day = 1518342840
+        now = int(time.time())
 
 
 def setup(bot):

@@ -19,7 +19,7 @@ class Moderation:
 
         After you start the kick process, there is 5 minutes of time for any other mod to confirm the kick.
         Make sure you include a reason for the kick."""
-        mod_role = get(ctx.guild.roles, id=RRPH.modRole)
+        mod_role = get(ctx.guild.roles, id=RRPH.mod_role)
         reason = "".join(reason)
 
         def check(reaction, user):
@@ -48,7 +48,7 @@ class Moderation:
 
         After you start the ban process, there is 5 minutes of time for any other mod to confirm the ban.
         Make sure you include a reason for the ban."""
-        mod_role = get(ctx.guild.roles, id=RRPH.modRole)
+        mod_role = get(ctx.guild.roles, id=RRPH.mod_role)
         reason = "".join(reason)
 
         def check(reaction, user):
