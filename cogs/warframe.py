@@ -21,7 +21,7 @@ class Warframe:
             entries = feed.entries
             saved_items = [line.strip() for line in open('cogs/cogdata/warframe/guids.txt')]
             new_items = [entry for entry in entries if entry.guid not in saved_items]
-            warframe_channel = self.bot.get_channel(RRPH.warframe_alerts_channel)
+            warframe_channel = self.bot.get_channel(419555992448008192)  # TODO: THIS IS ONLY A TEMPORARY FIX
             with open('cogs/cogdata/warframe/needs.json', 'r') as fp:
                 data = json.load(fp)
                 registered_users = [item for item in data]
