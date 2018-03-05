@@ -21,7 +21,7 @@ class RoleSignupSystem:
         member: Member = get(rrph.members, id=user_id)
         role = get(rrph.roles, id=translator[str(message_id)])
 
-        await member.add_roles(role)
+        await member.add_roles(role, reason="Role Signup System")
 
     async def on_raw_reaction_remove(self, emoji, message_id, channel_id, user_id):
         if channel_id != RRPH.welcome_channel:
@@ -34,7 +34,7 @@ class RoleSignupSystem:
         member: Member = get(rrph.members, id=user_id)
         role = get(rrph.roles, id=translator[str(message_id)])
 
-        await member.remove_roles(role)
+        await member.remove_roles(role, reason="Role Signup System")
 
 
 def setup(bot):
