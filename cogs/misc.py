@@ -68,7 +68,6 @@ class Misc:
         embed.add_field(name="Creator:", value=f"{creator.name}#{creator.discriminator}")
         embed.add_field(name="Server Count:", value=len(self.bot.guilds))
         embed.add_field(name="Uptime:", value=self.uptime())
-        embed.add_field(name="")
         embed.add_field(name="Invite Link", value=Config.invite, inline=False)
 
         await ctx.send(embed=embed)
