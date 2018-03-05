@@ -12,8 +12,10 @@ class Admin:
     def __init__(self, bot: SoturiBot):
         self.bot = bot
 
+    async def __local_check(self, ctx):
+        return await self.bot.is_owner(ctx.author)
+
     @commands.command()
-    @commands.is_owner()
     @is_in_guild(RRPH.id)
     async def sudo(self, ctx: commands.Context):
         """Gives you sudo permissions."""
@@ -31,13 +33,11 @@ class Admin:
         await ctx.author.remove_roles(sudo, reason="sudo time is up")
 
     @commands.group(invoke_without_command=True)
-    @commands.is_owner()
     async def clean(self, ctx: commands.Context, num: int=100):
             """Removes any number of messages (default 100)"""
             await ctx.channel.purge(limit=num+1)
 
     @clean.group()
-    @commands.is_owner()
     async def until(self, ctx: commands.Context, message_id: int):
         """Removes messages up until the given message, but not that one (up to 100)."""
         counter = 0
@@ -51,7 +51,6 @@ class Admin:
         await ctx.send("That message couldn't be found in the last 100 messages!\n"
                        f"Try again after `{ctx.prefix}clean`?")
 
-    @commands.is_owner()
     @commands.command(hidden=True)
     async def load(self, ctx, *, module):
         """Loads a module."""
@@ -62,7 +61,6 @@ class Admin:
         else:
             await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
 
-    @commands.is_owner()
     @commands.command(hidden=True)
     async def unload(self, ctx, *, module):
         """Unloads a module."""
@@ -73,7 +71,6 @@ class Admin:
         else:
             await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
 
-    @commands.is_owner()
     @commands.command(name='reload', hidden=True)
     async def _reload(self, ctx, *, module):
         """Reloads a module."""
@@ -85,7 +82,6 @@ class Admin:
         else:
             await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
 
-    @commands.is_owner()
     @commands.command()
     async def add_this_cog(self, ctx: commands.Context, path):
         """Adds a cog sent to the bot."""

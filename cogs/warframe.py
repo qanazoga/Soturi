@@ -45,8 +45,9 @@ class Warframe:
             await asyncio.sleep(10)
 
     @commands.group(name='wf')
+    @commands.has_role(name="warframe")
     async def warframe(self, ctx):
-        """qanazoga's Warframe Alert System
+        """[GROUP] of Warframe related commands. Mostly Alert System.
 
         qanazoga's pride and joy: Some items in Warframe only come from alerts, or are annoying to get anywhere else,
         but alerts happen all day, and only a few have things you want, while the others are complete trash.
