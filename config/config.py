@@ -1,4 +1,5 @@
 import json
+import time
 
 
 class Config:
@@ -10,3 +11,4 @@ class Config:
     ownerId = config["ownerId"]
     prefix = config["prefix"]
     invite = config["invite"]
+    launch_time = time.time()

@@ -3,6 +3,7 @@ from config.config import Config
 from soturi_bot import SoturiBot
 from discord.ext import commands
 from discord import User, Embed, Colour
+from time import time
 
 
 class Misc:
@@ -14,11 +15,6 @@ class Misc:
     async def ping(self, ctx: commands.Context):
         """Gets the websocket latency for this bot (it's ping!)"""
         await ctx.send(f"{int(ctx.bot.latency*1000)}ms")
-
-    @commands.command()
-    async def get_invite(self, ctx: commands.Context):
-        """Gets this bots invite code."""
-        await ctx.send(f"<{Config.invite}>")
 
     @commands.command(aliases=['choose', 'pick'])
     async def choice(self, ctx: commands.Context, *args):
@@ -69,11 +65,40 @@ class Misc:
             url="https://cdn.discordapp.com/avatars/241113397935079424/aec3e60e346f1626bb96ec65b44729d9.webp")
 
         creator = self.bot.get_user(Config.ownerId)
-        embed.add_field(name="Creator:", value=f"{creator.name}#{creator.discriminator}", inline=True)
-        embed.add_field(name="Server Count:", value=len(self.bot.guilds), inline=True)
-        embed.add_field(name="Invite Link", value=Config.invite)
+        embed.add_field(name="Creator:", value=f"{creator.name}#{creator.discriminator}")
+        embed.add_field(name="Server Count:", value=len(self.bot.guilds))
+        embed.add_field(name="Uptime:", value=self.uptime())
+        embed.add_field(name="")
+        embed.add_field(name="Invite Link", value=Config.invite, inline=False)
 
         await ctx.send(embed=embed)
+
+    def uptime(self):
+
+        total_seconds = time() - Config.launch_time
+
+        # Helper vars:
+        MINUTE = 60
+        HOUR = MINUTE * 60
+        DAY = HOUR * 24
+
+        # Get the days, hours, etc:
+        days = int(total_seconds / DAY)
+        hours = int((total_seconds % DAY) / HOUR)
+        minutes = int((total_seconds % HOUR) / MINUTE)
+        seconds = int(total_seconds % MINUTE)
+
+        # Build up the pretty string (like this: "N days, N hours, N minutes, N seconds")
+        string = ""
+        if days > 0:
+            string += str(days) + " " + (days == 1 and "day" or "days") + ", "
+        if len(string) > 0 or hours > 0:
+            string += str(hours) + " " + (hours == 1 and "hour" or "hours") + ", "
+        if len(string) > 0 or minutes > 0:
+            string += str(minutes) + " " + (minutes == 1 and "minute" or "minutes") + ", "
+        string += str(seconds) + " " + (seconds == 1 and "second" or "seconds")
+
+        return string
 
 
 def setup(bot):
