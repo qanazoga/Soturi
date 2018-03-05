@@ -75,7 +75,7 @@ class Warframe:
         try:
             if str(ctx.author.id) not in [ids for ids in data]:
                 with open('cogs/cogdata/warframe/needs.json', 'w') as fp:
-                    data[str(ctx.author.id)] = [needs]
+                    data[str(ctx.author.id)] = needs
                     json.dump(data, fp)
                     await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
             else:
