@@ -2,10 +2,9 @@ import random
 from config.config import Config
 from soturi_bot import SoturiBot
 from discord.ext import commands
-from discord import User, Embed, Colour
+from discord import User, Embed, Colour, File
 from time import time
-from os import listdir
-
+from glob import glob
 
 
 class Misc:
@@ -15,7 +14,7 @@ class Misc:
 
     @commands.command()
     async def ping(self, ctx: commands.Context):
-        """Gets the websocket latency for this bot (it's ping!)"""
+        """Gets the websocket latency for this bot (its ping!)"""
         await ctx.send(f"{int(ctx.bot.latency*1000)}ms")
 
     @commands.command(aliases=['choose', 'pick'])
@@ -59,22 +58,23 @@ class Misc:
         """
         await ctx.send("\n".join([member.avatar_url for member in target]))
 
-    @commands.command(pass_context=True)
+    @commands.command(pass_context=True, aliases=['tfw', 'mrw'])
     @commands.cooldown(1, 120, type=commands.BucketType.user)
     async def mfw(self, ctx):
-        """>MFW you don't know what this command does -.-
+        """>mfw you don't know what this command does -.-
         Sends a reaction image to the chat, we try to keep them optimized to fit as many situations as they can
         Has a 2 minute cooldown on a per-user basis to prevent annoying spamming."""
-        source = ctx.message.channel
-        path = 'cogs/cogdata/mfw/'
+        file_name_glob = 'cogs/cogdata/mfw/mfw_*.*'
+
         try:
-            async with ctx.source.typing():
-                await ctx.bot.send_file(source, path + random.choice(listdir(path)))
+            async with ctx.channel.typing():
+                await ctx.send(file=File(random.choice(glob(file_name_glob))))
         except Exception:
             await ctx.send("mfw I can't find my pics ;~;")
 
     @commands.command()
     async def info(self, ctx: commands.Context):
+        """Gets a bunch of info about the bot."""
         embed = Embed(colour=Colour(0xffa000))
 
         embed.set_thumbnail(
