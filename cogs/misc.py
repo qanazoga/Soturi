@@ -6,6 +6,7 @@ from discord import User, Embed, Colour
 from time import time
 
 
+
 class Misc:
 
     def __init__(self, bot: SoturiBot):
@@ -56,6 +57,20 @@ class Misc:
         Can also be used to get avatars of multiple users at once!
         """
         await ctx.send("\n".join([member.avatar_url for member in target]))
+
+    @commands.command(pass_context=True)
+    @commands.cooldown(1, 120, type=commands.BucketType.user)
+    async def mfw(self, ctx):
+        """>MFW you don't know what this command does -.-
+        Sends a reaction image to the chat, we try to keep them optimized to fit as many situations as they can
+        Has a 2 minute cooldown on a per-user basis to prevent annoying spamming."""
+        source = ctx.message.channel
+        path = './files/img/mfw/'
+        await self.bot.send_typing(source)
+        try:
+            await self.bot.send_file(source, path + random.choice(os.listdir(path)))
+        except Exception:
+            await self.bot.say("mfw I can't find my pics ;~;")
 
     @commands.command()
     async def info(self, ctx: commands.Context):

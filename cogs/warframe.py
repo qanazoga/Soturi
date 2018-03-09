@@ -75,8 +75,7 @@ class Warframe:
         try:
             if str(ctx.author.id) not in [ids for ids in data]:
                 with open('cogs/cogdata/warframe/needs.json', 'w') as fp:
-                    data[str(ctx.author.id)] = []
-                    data[str(ctx.author.id)].extend(needs)
+                    data.setdefault(str(ctx.author.id), []).extend(needs)
                     json.dump(data, fp)
                     await ctx.message.add_reaction('\N{WHITE HEAVY CHECK MARK}')
             else:
@@ -112,7 +111,7 @@ class Warframe:
             data = json.load(fp)
             await ctx.send(data[str(ctx.author.id)])
 
-    @warframe.command()
+    # @warframe.command()
     async def poe(self, ctx):
         """Get the time on Cetus and Plains of Eidolon"""
         first_day = 1518342840
