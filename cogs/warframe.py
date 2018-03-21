@@ -36,7 +36,7 @@ class Warframe:
                 if members_that_want:
                     await warframe_channel.send(f"{' '.join(set(members_that_want))},\n"
                                                 f"**I think you might want this!**\n"
-                                                f"{rssItem.title}")
+                                                   f"{rssItem.title}")
 
             saved_items = [entry.guid for entry in feed.entries]
             with open('cogs/cogdata/warframe/guids.txt', 'w') as fp:
@@ -111,11 +111,14 @@ class Warframe:
             data = json.load(fp)
             await ctx.send(data[str(ctx.author.id)])
 
-    # @warframe.command()
-    async def poe(self, ctx):
+    @warframe.group()
+    async def time(self, ctx):
         """Get the time on Cetus and Plains of Eidolon"""
-        first_day = 1518342840
-        now = int(time.time())
+        origin = 1518342840
+        minutes_into_cycle = (time.time() - origin) / 60 % 150
+
+    def time_until_next():
+        if
 
 
 def setup(bot):
