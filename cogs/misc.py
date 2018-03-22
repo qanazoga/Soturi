@@ -22,7 +22,7 @@ class Misc:
         """Picks between any number of things at random.
 
         Better than eenie-meenie-minie-moe, good for indecisive people."""
-        await ctx.send(random.choice(args))
+        await ctx.send(f"I choose: `{random.choice(args)}`")
 
     @commands.command(aliases=['8ball', '8_ball', 'eightball', 'magic_conch'])
     async def eight_ball(self, ctx: commands.Context):
