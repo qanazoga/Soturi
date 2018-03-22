@@ -1,6 +1,8 @@
 from soturi_bot import SoturiBot
 from discord.ext import commands
+from discord import Embed
 import random
+import json
 
 
 class RolePlaying:
@@ -56,9 +58,9 @@ class RolePlaying:
     def roll_die(self, roll):
         number_of_dice = 1
         number_of_sides = 20
+        rolls = []
         if roll != ".":
             buffer = ""
-            rolls = []
             for c in roll:
                 if c != 'd':
                     buffer += c
@@ -72,6 +74,25 @@ class RolePlaying:
             rolls.append(random.randint(1, number_of_sides))
 
         self.completed_rolls.append(rolls)
+
+    @commands.command()
+    @commands.has_role("narrator")
+    async def say(self, ctx, who, *, msg):
+        await ctx.message.delete()
+        embed = Embed(title=who, description=msg)
+
+        with open('cogs/cogdata/rp/avatars.json', 'r') as fp:
+            data = json.load(fp)
+
+        with open('cogs/cogdata/rp/avatars.json', 'r') as fp:
+            data = json.load(fp)
+
+        url = [item["URL"] for item in data if item["name"].lower() == who.lower()]
+
+        if url:
+            embed.set_thumbnail(url=url[0])
+
+        await ctx.send(embed=embed)
 
 
 def setup(bot):
