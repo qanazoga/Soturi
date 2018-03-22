@@ -11,11 +11,12 @@ class RolePlaying:
 
     @commands.command()
     async def roll(self, ctx, roll="1d20", *args):
+        args = list(args)
         self.completed_rolls = []
         repeat = 1
         and_index = 0
 
-        if "/r" in args:
+        if "/r" in args or "repeat" in args:
             repeat = int(args[args.index("/r") + 1])
 
         for i in range(repeat):
@@ -28,31 +29,45 @@ class RolePlaying:
                 for i in range(repeat):
                     self.roll_die(die_str)
 
-        if "/dl" in args:
+        if "/dl" in args or "drop_lowest" in args:
             [item.remove(min(item)) for item in self.completed_rolls]
 
-        if "/t" in args:
+        if "/dh" in args or "drop_highest" in args:
+            [item.remove(max(item)) for item in self.completed_rolls]
+
+        if "+" in args:
+            [item.append(int(args[args.index("+", and_index) + 1])) for item in self.completed_rolls]
+            args.append("/t")
+
+        if "-" in args:
+            [item.append(int(args[args.index("-", and_index) + 1])) for item in self.completed_rolls]
+            args.append("/t")
+
+        if "/t" in args or "total" in args:
             totaled = f"Total: {sum([sum(item) for item in self.completed_rolls])}"
         else:
             totaled = ""
+
+        if len(self.completed_rolls) == 1:
+            self.completed_rolls = self.completed_rolls[0]
 
         await ctx.send(f"```{self.completed_rolls}\n{totaled}```")
 
     def roll_die(self, roll):
         number_of_dice = 1
         number_of_sides = 20
-        buffer = ""
-        for c in roll:
-            print(buffer)
-            if c != 'd':
-                buffer += c
-            else:
-                number_of_dice = int(buffer)
-                buffer = ""
+        if roll != ".":
+            buffer = ""
+            rolls = []
+            for c in roll:
+                if c != 'd':
+                    buffer += c
+                else:
+                    number_of_dice = int(buffer)
+                    buffer = ""
 
-        number_of_sides = int(buffer)
+            number_of_sides = int(buffer)
 
-        rolls = []
         for j in range(number_of_dice):
             rolls.append(random.randint(1, number_of_sides))
 
