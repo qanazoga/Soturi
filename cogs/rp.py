@@ -84,15 +84,26 @@ class RolePlaying:
         with open('cogs/cogdata/rp/avatars.json', 'r') as fp:
             data = json.load(fp)
 
-        with open('cogs/cogdata/rp/avatars.json', 'r') as fp:
-            data = json.load(fp)
-
         url = [item["URL"] for item in data if item["name"].lower() == who.lower()]
 
         if url:
             embed.set_thumbnail(url=url[0])
 
         await ctx.send(embed=embed)
+
+    @commands.command()
+    @commands.has_role("narrator")
+    async def add_char(self, ctx, name, url):
+        await ctx.message.delete()
+
+        with open('cogs/cogdata/rp/avatars.json', 'r') as fp:
+            data = json.load(fp)
+            print(data)
+
+        with open('cogs/cogdata/rp/avatars.json', 'w') as fp:
+            d = {"name": name, "URL": url}
+            data.append(d)
+            json.dump(data, fp)
 
 
 def setup(bot):
