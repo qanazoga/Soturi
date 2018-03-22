@@ -117,8 +117,7 @@ class Warframe:
         origin = 1518342840
         minutes_into_cycle = (time.time() - origin) / 60 % 150
 
-    def time_until_next():
-        if
+    
 
 
 def setup(bot):
