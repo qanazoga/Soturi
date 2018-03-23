@@ -42,7 +42,7 @@ class RolePlaying:
             args.append("/t")
 
         if "-" in args:
-            [item.append(int(args[args.index("-", and_index) + 1])) for item in self.completed_rolls]
+            [item.append(-int(args[args.index("-", and_index) + 1])) for item in self.completed_rolls]
             args.append("/t")
 
         if "/t" in args or "total" in args:
