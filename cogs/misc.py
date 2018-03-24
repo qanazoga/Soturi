@@ -18,11 +18,11 @@ class Misc:
         await ctx.send(f"{int(ctx.bot.latency*1000)}ms")
 
     @commands.command(aliases=['choose', 'pick'])
-    async def choice(self, ctx: commands.Context, *args):
+    async def choice(self, ctx: commands.Context, *args: commands.clean_content()):
         """Picks between any number of things at random.
 
         Better than eenie-meenie-minie-moe, good for indecisive people."""
-        await ctx.send(f"I choose: `{random.choice(args)}`")
+        await ctx.send(f"I choose:\n\n\t`{random.choice(args)}`")
 
     @commands.command(aliases=['8ball', '8_ball', 'eightball', 'magic_conch'])
     async def eight_ball(self, ctx: commands.Context):

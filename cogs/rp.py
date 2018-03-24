@@ -98,13 +98,21 @@ class RolePlaying:
 
         with open('cogs/cogdata/rp/avatars.json', 'r') as fp:
             data = json.load(fp)
-            print(data)
 
         with open('cogs/cogdata/rp/avatars.json', 'w') as fp:
             d = {"name": name, "URL": url}
             data.append(d)
             json.dump(data, fp)
 
+    #@commands.command()
+    #@commands.has_role() TODO
+    async def rename_char(self, ctx, name, new_name):
+        await ctx.message.delete()
+
+        with open('cogs/cogdata/rp/avatars.json', 'r') as fp:
+            data = json.load(fp)
+
+        data = [item["name"] for item in data if item["name"].lower() == name.lower()]
 
 def setup(bot):
     bot.add_cog(RolePlaying(bot))
