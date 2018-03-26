@@ -1,6 +1,7 @@
 from discord.ext import commands
 from soturi_bot import SoturiBot
 from config.rrph_config import RRPH
+from discord import Embed, Colour
 import traceback
 import feedparser
 import json
@@ -21,7 +22,7 @@ class Warframe:
             entries = feed.entries
             saved_items = [line.strip() for line in open('cogs/cogdata/warframe/guids.txt')]
             new_items = [entry for entry in entries if entry.guid not in saved_items]
-            warframe_channel = self.bot.get_channel(RRPH.warframe_alerts_channel)
+            warframe_channel = self.bot.get_channel(RRPH.bot_dev_channel)#warframe_alerts_channel)
             with open('cogs/cogdata/warframe/needs.json', 'r') as fp:
                 data = json.load(fp)
                 registered_users = [item for item in data]
@@ -34,9 +35,10 @@ class Warframe:
                             members_that_want.append(member.mention)
 
                 if members_that_want:
-                    await warframe_channel.send(f"{' '.join(set(members_that_want))},\n"
-                                                f"**I think you might want this!**\n"
-                                                   f"{rssItem.title}")
+                    embed = Embed(title=rssItem.title, colour=Colour(0x67d05d))
+                    embed.set_footer(text=rssItem.guid)
+
+                    await warframe_channel.send(f"{' '.join(set(members_that_want))}", embed=embed)
 
             saved_items = [entry.guid for entry in feed.entries]
             with open('cogs/cogdata/warframe/guids.txt', 'w') as fp:
@@ -117,9 +119,7 @@ class Warframe:
         origin = 1518342840
         minutes_into_cycle = (time.time() - origin) / 60 % 150
 
-    def time_until_next():
-        if
-
+def
 
 def setup(bot):
     bot.add_cog(Warframe(bot))
