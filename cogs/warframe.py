@@ -113,11 +113,21 @@ class Warframe:
             data = json.load(fp)
             await ctx.send(data[str(ctx.author.id)])
 
-    @warframe.group()
-    async def time(self, ctx):
-        """Get the time on Cetus and Plains of Eidolon"""
-        origin = 1518342840
-        minutes_into_cycle = (time.time() - origin) / 60 % 150
+    @warframe.group(invoke_without_command=True)
+    async def poe(self, ctx):
+        """Get the time on Cetus and Plains of Eidolon, or Alert yourself for the next night"""
+        origin = 1518342300
+        minutes_into_cycle = int((time.time() - origin) / 60 % 150)
+        if minutes_into_cycle < 50:
+            embed = Embed(title=f"It's night, {50 - minutes_into_cycle} minutes left", colour=Colour(0x000000))
+        else:
+            embed = Embed(title=f"It's day, {150 - minutes_into_cycle} minutes left", colour=Colour(0xffffff))
+        await ctx.send(embed=embed)
+
+    @poe.command()
+    async def alert(self, ctx):
+        """Get an alert that night is coming to the plains"""
+        ...
 
     def get_color(self, mission_type):
         return {
