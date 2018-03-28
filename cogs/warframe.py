@@ -1,7 +1,7 @@
 from discord.ext import commands
 from soturi_bot import SoturiBot
 from config.rrph_config import RRPH
-from discord import Embed, Colour
+from discord import Embed, Colour, Member
 import traceback
 import feedparser
 import json
@@ -125,9 +125,27 @@ class Warframe:
         await ctx.send(embed=embed)
 
     @poe.command()
-    async def alert(self, ctx):
+    async def alert(self, ctx, *args):
         """Get an alert that night is coming to the plains"""
-        ...
+        origin = 1518342300
+        minutes_into_cycle = int((time.time() - origin) / 60 % 150)
+        time_left = 150 - minutes_into_cycle
+
+        if time_left <= 10 and "-f" not in args:
+            await ctx.send(f"Night hasn't started yet, but there's only {time_left} minutes left!\n"
+                           f"Try to build a party quickly, or run again with `-f`.")
+            return
+        else:
+            await ctx.send(f"The next night starts in {150 - minutes_into_cycle}m.\n"
+                           f"Setting a timer for {150 - minutes_into_cycle - 10}m.")
+
+            await self.poe_alert((150 - minutes_into_cycle - 10) * 1000, ctx.author)
+
+    async def poe_alert(self, time_left, member: Member):
+        await asyncio.sleep(time_left)
+        wf = self.bot.get_channel(RRPH.warframe_alerts_channel)
+        await wf.send(f"{member.mention}, only 10 minutes until night!")
+
 
     def get_color(self, mission_type):
         return {
