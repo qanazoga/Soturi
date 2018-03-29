@@ -139,7 +139,7 @@ class Warframe:
             await ctx.send(f"The next night starts in {150 - minutes_into_cycle}m.\n"
                            f"Setting a timer for {150 - minutes_into_cycle - 10}m.")
 
-            await self.poe_alert(int((150 - minutes_into_cycle - 10) / 60), ctx.author)
+            await self.poe_alert(int((150 - minutes_into_cycle - 10) * 60), ctx.author)
 
     async def poe_alert(self, time_left, member: Member):
         await asyncio.sleep(time_left)
