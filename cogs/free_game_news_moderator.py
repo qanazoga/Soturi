@@ -25,6 +25,5 @@ class FreeGameNewsModerator:
                       "and a mention `@free-game-news` to prevent this in the future.")
 
 
-
 def setup(bot):
     bot.add_cog(FreeGameNewsModerator(bot))
