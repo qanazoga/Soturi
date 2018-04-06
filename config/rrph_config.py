@@ -15,6 +15,8 @@ class RRPH:
     styx_admin_role = rrph["styx_admin_role"]
     styx_user_role = rrph["styx_user_role"]
 
+    free_game_news_role = rrph["free_game_news_role"]
+
     welcome_channel = rrph["welcome_channel"]
     free_game_news_channel = rrph["free_game_news_channel"]
     warframe_channel = rrph["warframe_channel"]
