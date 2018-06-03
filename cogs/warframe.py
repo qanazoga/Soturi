@@ -14,20 +14,24 @@ class Warframe:
     def __init__(self, bot: SoturiBot):
         self.bot = bot
         self.bot.loop.create_task(self.check_warframe_rss())
+        self.saved_items = None
 
     async def check_warframe_rss(self):
         await self.bot.wait_until_ready()
         while not self.bot.is_closed():
             feed = feedparser.parse("http://content.warframe.com/dynamic/rss.php")
             entries = feed.entries
-            saved_items = [line.strip() for line in open('cogs/cogdata/warframe/guids.txt')]
-            new_items = [entry for entry in entries if entry.guid not in saved_items]
+            if self.saved_items is None:
+                self.saved_items = [line.strip() for line in open('cogs/cogdata/warframe/guids.txt')]
+
+            new_items = [entry for entry in entries if entry.guid not in self.saved_items]
             warframe_channel = self.bot.get_channel(RRPH.warframe_alerts_channel)
             with open('cogs/cogdata/warframe/needs.json', 'r') as fp:
                 data = json.load(fp)
                 registered_users = [item for item in data]
 
             for rssItem in new_items:
+                self.saved_items.append(rssItem.guid)
                 members_that_want = []
                 for member in warframe_channel.members:
                     if str(member.id) in registered_users:
@@ -40,9 +44,8 @@ class Warframe:
 
                     await warframe_channel.send(f"{' '.join(set(members_that_want))}", embed=embed)
 
-            saved_items = [entry.guid for entry in feed.entries]
             with open('cogs/cogdata/warframe/guids.txt', 'w') as fp:
-                [fp.write(f"{item}\n") for item in saved_items]
+                [fp.write(f"{item}\n") for item in self.saved_items]
 
             await asyncio.sleep(10)
 
