@@ -11,7 +11,7 @@ class RoleSignupSystem:
         self.bot = bot
 
     async def on_raw_reaction_add(self, emoji, message_id, channel_id, user_id):
-        if channel_id != RRPH.welcome_channel:
+        if (channel_id != RRPH.welcome_channel) or (channel_id != RRPH.iconoclasm):
             return
 
         with open("config/roles.json", "r") as file:
@@ -24,7 +24,7 @@ class RoleSignupSystem:
         await member.add_roles(role, reason="Role Signup System")
 
     async def on_raw_reaction_remove(self, emoji, message_id, channel_id, user_id):
-        if channel_id != RRPH.welcome_channel:
+        if (channel_id != RRPH.welcome_channel) or (channel_id != RRPH.iconoclasm):
             return
 
         with open("config/roles.json", "r") as file:

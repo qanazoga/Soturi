@@ -23,3 +23,5 @@ class RRPH:
     warframe_alerts_channel = rrph["warframe_alerts_channel"]
     bot_dev_channel = rrph["bot_dev_channel"]
     mod_chat_channel = rrph["mod_chat_channel"]
+
+    iconoclasm = rrph["iconoclasm"]
