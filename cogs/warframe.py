@@ -2,6 +2,7 @@ from discord.ext import commands
 from soturi_bot import SoturiBot
 from config.rrph_config import RRPH
 from discord import Embed, Colour, Member
+import urllib.request as request
 import traceback
 import feedparser
 import json
@@ -125,21 +126,34 @@ class Warframe:
         await ctx.send(embed=embed)
 
     @poe.command()
-    async def alert(self, ctx, *args):
+    async def alert(self, ctx):
         """Get an alert that night is coming to the plains"""
         origin = 1518342300
         minutes_into_cycle = int((time.time() - origin) / 60 % 150)
         time_left = 150 - minutes_into_cycle
 
-        if time_left <= 10 and "-f" not in args:
-            await ctx.send(f"Night hasn't started yet, but there's only {time_left} minutes left!\n"
-                           f"Try to build a party quickly, or run again with `-f`.")
-            return
+        if time_left <= 10:
+            await ctx.send(f"Night hasn't started yet, but there's only {time_left} minutes left!")
         else:
             await ctx.send(f"The next night starts in {150 - minutes_into_cycle}m.\n"
                            f"Setting a timer for {150 - minutes_into_cycle - 10}m.")
 
-            await self.poe_alert(int((150 - minutes_into_cycle - 10) * 60), ctx.author)
+            await self.poe_alert((150 - minutes_into_cycle - 10) * 60, ctx.author)
+
+    @warframe.command(aliases=["fis"])
+    async def fissures(self, ctx):
+        """Shows the current location of Void Fissures"""
+        url = "https://ws.warframestat.us/pc"
+        req = request.Request(url, headers={'User-Agent': "Magic Browser"})
+        con = request.urlopen(req)
+        data = json.loads(con.read().decode("utf-8"))
+        fissures = sorted(data['fissures'], key=lambda k: k['tierNum'])
+        pl = []
+        for item in fissures:
+            pl.append(f"```asciidoc\nLocation :: {item['node']}\nRelic :: {item['tier']}\n"
+                      f"Mission :: {item['missionType']}\nTime Remaining :: {item['eta']}\n```")
+
+        await ctx.send("".join(pl))
 
     async def poe_alert(self, time_left, member: Member):
         await asyncio.sleep(time_left)
