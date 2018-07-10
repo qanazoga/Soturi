@@ -24,4 +24,4 @@ class RRPH:
     bot_dev_channel = rrph["bot_dev_channel"]
     mod_chat_channel = rrph["mod_chat_channel"]
 
-    iconoclasm = rrph["iconoclasm"]
+    iconoclasm_id = rrph["iconoclasm_id"]

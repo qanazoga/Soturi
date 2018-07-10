@@ -11,28 +11,30 @@ class RoleSignupSystem:
         self.bot = bot
 
     async def on_raw_reaction_add(self, emoji, message_id, channel_id, user_id):
-        if (channel_id != RRPH.welcome_channel) or (channel_id != RRPH.iconoclasm):
+        if (channel_id != RRPH.welcome_channel) and (channel_id != RRPH.iconoclasm_id):
             return
 
+        print("Adding role")
         with open("config/roles.json", "r") as file:
             translator = json.load(file)
 
-        rrph: Guild = get(self.bot.guilds, id=RRPH.id)
-        member: Member = get(rrph.members, id=user_id)
-        role = get(rrph.roles, id=translator[str(message_id)])
+        guild: Guild = self.bot.get_channel(channel_id).guild
+        member: Member = get(guild.members, id=user_id)
+        role = get(guild.roles, id=translator[str(message_id)])
 
         await member.add_roles(role, reason="Role Signup System")
 
     async def on_raw_reaction_remove(self, emoji, message_id, channel_id, user_id):
-        if (channel_id != RRPH.welcome_channel) or (channel_id != RRPH.iconoclasm):
+        if (channel_id != RRPH.welcome_channel) and (channel_id != RRPH.iconoclasm_id):
             return
 
+        print("Removing role")
         with open("config/roles.json", "r") as file:
             translator = json.load(file)
 
-        rrph: Guild = get(self.bot.guilds, id=RRPH.id)
-        member: Member = get(rrph.members, id=user_id)
-        role = get(rrph.roles, id=translator[str(message_id)])
+        guild: Guild = self.bot.get_channel(channel_id).guild
+        member: Member = get(guild.members, id=user_id)
+        role = get(guild.roles, id=translator[str(message_id)])
 
         await member.remove_roles(role, reason="Role Signup System")
 
