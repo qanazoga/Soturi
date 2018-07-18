@@ -74,7 +74,14 @@ class Misc:
             await ctx.send("mfw I can't find my pics ;~;")
 
     @commands.command(aliases=["template", "react"])
-    async def create_reaction_template(self, ctx: commands.Context, message_id: int, reaction_text: str):
+    async def create_reaction_template(self, ctx: commands.Context, reaction_text: str, message_id: int):
+        """Tries to add a text in the form of reaction emoji to a given message
+
+        Try is the keyword, this can fail for multiple reasons, including the use of the same letter multiple times in
+        your text, or the letter already being used in the reactions on that message.
+
+        In the future message_id may be an optional parameter, defaulting to the message before yours.
+        """
         msg = await ctx.channel.get_message(message_id)
         reaction_text = sub(r"[^A-Z]", "", reaction_text.upper())
 
