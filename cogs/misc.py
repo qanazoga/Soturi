@@ -2,7 +2,7 @@ import random
 from config.config import Config
 from soturi_bot import SoturiBot
 from discord.ext import commands
-from discord import User, Embed, Colour, File
+from discord import User, Embed, Colour, File, utils
 from asyncio import sleep
 from time import time
 from glob import glob
@@ -76,7 +76,10 @@ class Misc:
 
     @commands.command(aliases=["template", "react"])
     async def create_reaction_template(self, ctx: commands.Context, reaction_text: str, message_id: int):
-        """Tries to add a text in the form of reaction emoji to a given message
+        """Tries to add a text in the form of reaction emoji to a given message. CLICK THE THINGS!!!
+
+        This is for TEMPLATING, not leaving messages with the bot. Soturi will remove its reactions after 20 seconds,
+        make sure to add yours in that time.
 
         Try is the keyword, this can fail for multiple reasons, including the use of the same letter multiple times in
         your text, or the letter already being used in the reactions on that message.
@@ -89,7 +92,8 @@ class Misc:
         if len(reaction_text) != (len(set(reaction_text))):
             await ctx.message.add_reaction("❌")
             await ctx.channel.send("Your message contains letters used more than once, "
-                                   "but you can't do this with reactions\n*you might need to get a little creative*")
+                                   "but you can't do this with reactions\n*you might need to get a little creative*",
+                                   delete_after=30)
             return
 
         emoji_queue = []
@@ -98,17 +102,21 @@ class Misc:
 
         if [reaction.emoji for reaction in msg.reactions if reaction.emoji in emoji_queue]:
             await ctx.message.add_reaction("❌")
-            await ctx.send("The message already has one of the reaction letters you need!")
+            await ctx.send("The message already has one of the reaction letters you need!", delete_after=30)
             return
 
         for emoji in emoji_queue:
             await msg.add_reaction(emoji)
 
-        await sleep(20)
+        await sleep(15)
 
-        for emoji in [reaction.emoji for reaction in msg.reactions if reaction.me]:
+        for emoji in emoji_queue:
             await msg.remove_reaction(emoji, ctx.guild.me)
 
+        try:
+            await ctx.message.delete()
+        except:
+            pass  # if we get to this point, it's fine if we can't delete the message, usually just don't have perms
 
     @commands.command(aliases=["uptime", "invite"])
     async def info(self, ctx: commands.Context):
