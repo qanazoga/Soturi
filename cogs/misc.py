@@ -3,6 +3,7 @@ from config.config import Config
 from soturi_bot import SoturiBot
 from discord.ext import commands
 from discord import User, Embed, Colour, File
+from asyncio import sleep
 from time import time
 from glob import glob
 from re import sub
@@ -102,6 +103,12 @@ class Misc:
 
         for emoji in emoji_queue:
             await msg.add_reaction(emoji)
+
+        await sleep(20)
+
+        for emoji in [reaction.emoji for reaction in msg.reactions if reaction.me]:
+            await msg.remove_reaction(emoji, ctx.guild.me)
+
 
     @commands.command(aliases=["uptime", "invite"])
     async def info(self, ctx: commands.Context):
