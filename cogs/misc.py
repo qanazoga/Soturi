@@ -5,6 +5,7 @@ from discord.ext import commands
 from discord import User, Embed, Colour, File
 from time import time
 from glob import glob
+from re import sub
 
 
 class Misc:
@@ -50,8 +51,8 @@ class Misc:
             "Very doubtful"
         ]))
 
-    @commands.command()
-    async def avatar(self, ctx: commands.Context, *target: User):
+    @commands.command(aliases=["avatar"])
+    async def get_avatar(self, ctx: commands.Context, *target: User):
         """Gets a user's profile picture.
 
         Can also be used to get avatars of multiple users at once!
@@ -72,7 +73,30 @@ class Misc:
         except Exception:
             await ctx.send("mfw I can't find my pics ;~;")
 
-    @commands.command()
+    @commands.command(aliases=["template", "react"])
+    async def create_reaction_template(self, ctx: commands.Context, message_id: int, reaction_text: str):
+        msg = await ctx.channel.get_message(message_id)
+        reaction_text = sub(r"[^A-Z]", "", reaction_text.upper())
+
+        if len(reaction_text) != (len(set(reaction_text))):
+            await ctx.message.add_reaction("❌")
+            await ctx.channel.send("Your message contains letters used more than once, "
+                                   "but you can't do this with reactions\n*you might need to get a little creative*")
+            return
+
+        emoji_queue = []
+        for char in reaction_text.upper():
+            emoji_queue.append(self.letter_to_emoji(char))
+
+        if [reaction.emoji for reaction in msg.reactions if reaction.emoji in emoji_queue]:
+            await ctx.message.add_reaction("❌")
+            await ctx.send("The message already has one of the reaction letters you need!")
+            return
+
+        for emoji in emoji_queue:
+            await msg.add_reaction(emoji)
+
+    @commands.command(aliases=["uptime", "invite"])
     async def info(self, ctx: commands.Context):
         """Gets a bunch of info about the bot."""
         embed = Embed(colour=Colour(0xffa000))
@@ -82,14 +106,13 @@ class Misc:
 
         creator = self.bot.get_user(Config.ownerId)
         embed.add_field(name="Creator:", value=f"{creator.name}#{creator.discriminator}")
-        embed.add_field(name="Server Count:", value=len(self.bot.guilds))
+        embed.add_field(name="Server Count:", value=str(len(self.bot.guilds)))  # hush, I got tired of the yellow line
         embed.add_field(name="Uptime:", value=self.uptime())
         embed.add_field(name="Invite Link", value=Config.invite, inline=False)
 
         await ctx.send(embed=embed)
 
     def uptime(self):
-
         total_seconds = time() - Config.launch_time
 
         # Helper vars:
@@ -115,6 +138,10 @@ class Misc:
 
         return string
 
+    def letter_to_emoji(self, letter):
+        return chr(0x1f1e6 + ord(letter.upper()) - 0x41)
+
 
 def setup(bot):
     bot.add_cog(Misc(bot))
+

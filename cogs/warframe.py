@@ -52,7 +52,7 @@ class Warframe:
     async def warframe(self, ctx):
         """[GROUP] of Warframe related commands. Mostly Alert System.
 
-        qanazoga's pride and joy: Some items in Warframe only come from alerts, or are annoying to get anywhere else,
+        Some items in Warframe only come from alerts, or are annoying to get anywhere else,
         but alerts happen all day, and only a few have things you want, while the others are complete trash.
         use the `subscribe` command to subscribe to just the alerts about the items you want.
         """
@@ -125,9 +125,9 @@ class Warframe:
             embed = Embed(title=f"It's day, {150 - minutes_into_cycle} minutes left", colour=Colour(0xffffff))
         await ctx.send(embed=embed)
 
-    @poe.command()
-    async def alert(self, ctx):
-        """Get an alert that night is coming to the plains"""
+    @poe.command(aliases=["alert"])
+    async def alert_me(self, ctx):
+        """Get a one time alert that night is coming to the plains"""
         origin = 1518342300
         minutes_into_cycle = int((time.time() - origin) / 60 % 150)
         time_left = 150 - minutes_into_cycle
