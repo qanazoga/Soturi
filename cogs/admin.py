@@ -3,8 +3,10 @@ import traceback
 from config.rrph_config import RRPH
 from soturi_bot import SoturiBot
 from utils.checks import is_in_guild
+from discord import Member
 from discord.ext import commands
 from discord.utils import get
+from discord import Forbidden
 
 
 class Admin:
@@ -50,6 +52,15 @@ class Admin:
 
         await ctx.send("That message couldn't be found in the last 100 messages!\n"
                        f"Try again after `{ctx.prefix}clean`?")
+
+    @commands.command(aliases=["begone", "ban_spam"])
+    async def ban_spammer(self, ctx, spammer: Member, *, reason=None):
+        try:
+            await ctx.guild.ban(spammer, reason=reason, delete_message_days=7)
+        except Forbidden:
+            await ctx.send(f'```\n{traceback.format_exc()}\n```')
+        else:
+            await ctx.send("bye felicia")
 
     @commands.command(hidden=True)
     async def load(self, ctx, *, module):
