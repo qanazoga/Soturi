@@ -118,6 +118,14 @@ class Misc:
         except:
             pass  # if we get to this point, it's fine if we can't delete the message, usually just don't have perms
 
+    @commands.command()
+    async def vote(self, ctx):
+        """Adds an up and down vote reaction to your message.
+
+        >vote to call this the best command, anyone?"""
+        await ctx.message.add_reaction("⬆")
+        await ctx.message.add_reaction("⬇")
+
     @commands.command(aliases=["uptime", "invite"])
     async def info(self, ctx: commands.Context):
         """Gets a bunch of info about the bot."""
