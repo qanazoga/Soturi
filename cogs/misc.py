@@ -87,7 +87,7 @@ class Misc:
         In the future message_id may be an optional parameter, defaulting to the message before yours.
         """
         msg = await ctx.channel.get_message(message_id)
-        reaction_text = sub(r"[^A-Z]", "", reaction_text.upper())
+        reaction_text = sub(r"[^A-Z0-9]", "", reaction_text.upper())
 
         if len(reaction_text) != (len(set(reaction_text))):
             await ctx.message.add_reaction("❌")
@@ -98,7 +98,7 @@ class Misc:
 
         emoji_queue = []
         for char in reaction_text.upper():
-            emoji_queue.append(self.letter_to_emoji(char))
+            emoji_queue.append(self.character_to_emoji(char))
 
         if [reaction.emoji for reaction in msg.reactions if reaction.emoji in emoji_queue]:
             await ctx.message.add_reaction("❌")
@@ -168,8 +168,8 @@ class Misc:
 
         return string
 
-    def letter_to_emoji(self, letter):
-        return chr(0x1f1e6 + ord(letter.upper()) - 0x41)
+    def character_to_emoji(self, character):
+        return f"{character}\u20E3" if character.isdigit() else chr(0x1f1e6 + ord(character.upper()) - 0x41)
 
 
 def setup(bot):
