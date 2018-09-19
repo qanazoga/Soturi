@@ -11,7 +11,9 @@ class RoleSignupSystem:
         self.bot = bot
 
     async def on_raw_reaction_add(self, emoji, message_id, channel_id, user_id):
-        if (channel_id != RRPH.welcome_channel) and (channel_id != RRPH.iconoclasm_id):
+        if (channel_id != RRPH.welcome_channel) \
+                and (channel_id != RRPH.iconoclasm_id)\
+                and (channel_id != RRPH.role_signup_channel):
             return
 
         print("Adding role")
@@ -25,7 +27,9 @@ class RoleSignupSystem:
         await member.add_roles(role, reason="Role Signup System")
 
     async def on_raw_reaction_remove(self, emoji, message_id, channel_id, user_id):
-        if (channel_id != RRPH.welcome_channel) and (channel_id != RRPH.iconoclasm_id):
+        if (channel_id != RRPH.welcome_channel) \
+                and (channel_id != RRPH.iconoclasm_id)\
+                and (channel_id != RRPH.role_signup_channel):
             return
 
         print("Removing role")

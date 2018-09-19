@@ -18,6 +18,7 @@ class RRPH:
     free_game_news_role = rrph["free_game_news_role"]
 
     welcome_channel = rrph["welcome_channel"]
+    role_signup_channel = rrph["role_signup_channel"]
     free_game_news_channel = rrph["free_game_news_channel"]
     warframe_channel = rrph["warframe_channel"]
     warframe_alerts_channel = rrph["warframe_alerts_channel"]
