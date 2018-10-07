@@ -9,7 +9,7 @@ class SoturiBot(Bot):
     async def on_ready(self):
         game = Game(name=f"{self.command_prefix}help")
         print(f"Successfully logged in as {self.user.name}")
-        await self.change_presence(game=game)
+        await self.change_presence(activity=game)
 
     async def on_message(self, message: discord.Message):
         print(f"\t{message.author.name}: {message.content}")
