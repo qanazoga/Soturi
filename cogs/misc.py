@@ -60,19 +60,33 @@ class Misc:
         """
         await ctx.send("\n".join([member.avatar_url for member in target]))
 
-    @commands.command(pass_context=True, aliases=['tfw', 'mrw'])
+    @commands.command(aliases=['tfw', 'mrw'])
     @commands.cooldown(1, 120, type=commands.BucketType.user)
     async def mfw(self, ctx):
         """>mfw you don't know what this command does -.-
         Sends a reaction image to the chat, we try to keep them optimized to fit as many situations as they can
         Has a 2 minute cooldown on a per-user basis to prevent annoying spamming."""
-        file_name_glob = 'cogs/cogdata/mfw/mfw_*.*'
+        file_name_glob = 'cogs/cogdata/mfw/*'
 
         try:
             async with ctx.channel.typing():
                 await ctx.send(file=File(random.choice(glob(file_name_glob))))
         except Exception:
             await ctx.send("mfw I can't find my pics ;~;")
+
+    @commands.command(aliases=['addmfw'])
+    @commands.is_owner()
+    async def add_mfw(self, ctx):
+        """Adds an attached picture to the reaction picture collection."""
+        if not ctx.message.attachments:
+            await ctx.send("There's no picture here!")
+            await ctx.message.add_reaction("👎")
+            return
+
+        for file in ctx.message.attachments:
+            await file.save(f"cogs/cogdata/mfw/{file.filename}")
+
+        await ctx.message.add_reaction("👍")
 
     @commands.command(aliases=["template", "react"])
     async def create_reaction_template(self, ctx: commands.Context, reaction_text: str, message_id: int):
