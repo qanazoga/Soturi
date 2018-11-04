@@ -76,7 +76,7 @@ class RolePlaying:
         self.completed_rolls.append(rolls)
 
     @commands.command()
-    @commands.has_role("narrator")
+    @commands.has_role("DM")
     async def say(self, ctx, who, *, msg):
         await ctx.message.delete()
         embed = Embed(title=who, description=msg)
@@ -92,7 +92,7 @@ class RolePlaying:
         await ctx.send(embed=embed)
 
     @commands.command()
-    @commands.has_role("narrator")
+    @commands.has_role("DM")
     async def add_char(self, ctx, name, url):
         await ctx.message.delete()
 

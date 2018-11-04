@@ -171,7 +171,7 @@ class Misc:
     def character_to_emoji(self, character):
         return f"{character}\u20E3" if character.isdigit() else chr(0x1f1e6 + ord(character.upper()) - 0x41)
 
- 
+
 def setup(bot):
     bot.add_cog(Misc(bot))
 
