@@ -128,7 +128,7 @@ class Warframe:
     @poe.command(aliases=["alert"])
     async def alert_me(self, ctx):
         """Get a one time alert that night is coming to the plains"""
-        origin = 1518558300  # 1518342300
+        origin = 1518126300  # 1518342300
         minutes_into_cycle = int((time.time() - origin) / 60 % 150)
         time_left = 150 - minutes_into_cycle
 
