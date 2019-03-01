@@ -117,7 +117,7 @@ class Warframe:
     @warframe.group(invoke_without_command=True)
     async def poe(self, ctx):
         """Get the time on Cetus and Plains of Eidolon, or Alert yourself for the next night"""
-        origin = 1518558300 # 1518342300
+        origin = 1518338700  # 1518342300
         minutes_into_cycle = int((time.time() - origin) / 60 % 150)
         if minutes_into_cycle < 50:
             embed = Embed(title=f"It's night, {50 - minutes_into_cycle} minutes left", colour=Colour(0x000000))
@@ -128,7 +128,7 @@ class Warframe:
     @poe.command(aliases=["alert"])
     async def alert_me(self, ctx):
         """Get a one time alert that night is coming to the plains"""
-        origin = 1518558300 # 1518342300
+        origin = 1518338700  # 1518342300
         minutes_into_cycle = int((time.time() - origin) / 60 % 150)
         time_left = 150 - minutes_into_cycle
 
