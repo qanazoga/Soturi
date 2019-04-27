@@ -87,6 +87,11 @@ class Moderation:
                     (role.id != "235187792265609217"):
                 target.remove(role, reason)
 
+        ch = target.create_dm()
+        ch.send("Oopsie woopsie, wooks wike someone fogwot the woows!\nPwease, we-wead the wuwes! \n" +
+                "We don't want another fucksie-wucksie wike dis again! uwu\n" +
+                "(Reread rules 1, 2, and 3. Stop being a dick)")
+
 
 def setup(bot):
     bot.add_cog(Moderation(bot))
