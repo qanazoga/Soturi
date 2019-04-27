@@ -79,16 +79,18 @@ class Moderation:
     async def silence(self, ctx: commands.Context, target: Member, *, reason):
         """Remove all roles from someone"""
         reason = "".join(reason)
+        roles = []
 
         for role in target.roles:
             if (role.id != "376461381702254613") and \
                     (role.id != "376461598459559937") and \
                     (role.id != "411060339908542465") and \
                     (role.id != "235187792265609217"):
-                target.remove_roles(role, reason)
+                roles.append(role)
 
+        target.remove_roles(roles, reason)
         ch = target.create_dm()
-        ch.send("Oopsie woopsie, wooks wike someone fogwot the woows!\nPwease, we-wead the wuwes! \n" +
+        await ch.send("Oopsie woopsie, wooks wike someone fogwot the woows!\nPwease, we-wead the wuwes! \n" +
                 "We don't want another fucksie-wucksie wike dis again! uwu\n" +
                 "(Reread rules 1, 2, and 3. Stop being a dick)")
 
