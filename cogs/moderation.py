@@ -88,7 +88,7 @@ class Moderation:
                     (role.id != "235187792265609217"):
                 roles.append(role)
 
-        target.remove_roles(roles, reason)
+        await target.remove_roles(roles, reason)
         ch = target.create_dm()
         await ch.send("Oopsie woopsie, wooks wike someone fogwot the woows!\nPwease, we-wead the wuwes! \n" +
                 "We don't want another fucksie-wucksie wike dis again! uwu\n" +
