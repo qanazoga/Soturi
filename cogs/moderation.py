@@ -34,7 +34,7 @@ class Moderation:
         await msg.add_reaction('🛑')
 
         try:
-            await ctx.bot.wait_for('reaction_add', timeout=60.0*5, check=check)
+            await ctx.bot.wait_for('reaction_add', timeout=60.0 * 5, check=check)
         except TimeoutError:
             await msg.delete()
         else:
@@ -72,7 +72,6 @@ class Moderation:
         else:
             await target.ban(reason=reason)
 
-
     @commands.command()
     @commands.has_role('mod')
     @commands.guild_only()
@@ -91,8 +90,8 @@ class Moderation:
         await target.remove_roles(roles, reason)
         ch = target.create_dm()
         await ch.send("Oopsie woopsie, wooks wike someone fogwot the woows!\nPwease, we-wead the wuwes! \n" +
-                "We don't want another fucksie-wucksie wike dis again! uwu\n" +
-                "(Reread rules 1, 2, and 3. Stop being a dick)")
+                      "We don't want another fucksie-wucksie wike dis again! uwu\n" +
+                      "(Reread rules 1, 2, and 3. Stop being a dick)")
 
 
 def setup(bot):
