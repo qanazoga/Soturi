@@ -87,5 +87,6 @@ class Moderation:
                     (role.id != "235187792265609217"):
                 target.remove(role, reason)
 
+
 def setup(bot):
     bot.add_cog(Moderation(bot))
