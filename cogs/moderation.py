@@ -85,7 +85,7 @@ class Moderation:
                     (role.id != "376461598459559937") and \
                     (role.id != "411060339908542465") and \
                     (role.id != "235187792265609217"):
-                target.remove(role, reason)
+                target.remove_roles(role, reason)
 
         ch = target.create_dm()
         ch.send("Oopsie woopsie, wooks wike someone fogwot the woows!\nPwease, we-wead the wuwes! \n" +
