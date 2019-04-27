@@ -73,5 +73,19 @@ class Moderation:
             await target.ban(reason=reason)
 
 
+    @commands.command()
+    @commands.has_role('mod')
+    @commands.guild_only()
+    async def silence(self, ctx: commands.Context, target: Member, *, reason):
+        """Remove all roles from someone"""
+        reason = "".join(reason)
+
+        for role in target.roles:
+            if (role.id != "376461381702254613") and \
+                    (role.id != "376461598459559937") and \
+                    (role.id != "411060339908542465") and \
+                    (role.id != "235187792265609217"):
+                target.remove(role, reason)
+
 def setup(bot):
     bot.add_cog(Moderation(bot))
