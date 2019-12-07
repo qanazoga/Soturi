@@ -9,7 +9,7 @@ from discord.utils import get
 from discord import Forbidden
 
 
-class Admin:
+class Admin(commands.Cog):
 
     def __init__(self, bot: SoturiBot):
         self.bot = bot

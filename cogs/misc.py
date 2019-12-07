@@ -9,7 +9,7 @@ from glob import glob
 from re import sub
 
 
-class Misc:
+class Misc(commands.Cog):
 
     def __init__(self, bot: SoturiBot):
         self.bot = bot

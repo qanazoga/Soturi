@@ -7,13 +7,13 @@ from utils import checks
 import traceback
 
 
-class Styx:
+class Styx(commands.Cog):
 
     def __init__(self, bot: SoturiBot):
         self.bot = bot
 
     @commands.group(name="styx")
-    @commands.has_role(name="styx-admins")
+    @commands.has_role("styx-admins")
     @checks.is_in_guild(RRPH.id)
     async def styx(self, ctx):
         """[GROUP] of commands related to Styx."""

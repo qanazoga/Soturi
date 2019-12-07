@@ -6,7 +6,7 @@ from discord import Member
 from asyncio import TimeoutError
 
 
-class Moderation:
+class Moderation(commands.Cog):
 
     def __init__(self, bot: SoturiBot):
         self.bot = bot

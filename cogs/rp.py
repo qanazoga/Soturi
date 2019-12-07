@@ -5,7 +5,7 @@ import random
 import json
 
 
-class RolePlaying:
+class RolePlaying(commands.Cog):
 
     def __init__(self, bot: SoturiBot):
         self.bot = bot

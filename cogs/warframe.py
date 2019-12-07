@@ -10,7 +10,7 @@ import asyncio
 import time
 
 
-class Warframe:
+class Warframe(commands.Cog):
 
     def __init__(self, bot: SoturiBot):
         self.bot = bot
@@ -48,7 +48,7 @@ class Warframe:
             await asyncio.sleep(10)
 
     @commands.group(name='wf')
-    @commands.has_role(name="warframe")
+    @commands.has_role("warframe")
     async def warframe(self, ctx):
         """[GROUP] of Warframe related commands. Mostly Alert System.
 

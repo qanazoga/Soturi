@@ -1,9 +1,10 @@
 from config.rrph_config import RRPH
 from discord import Message
 from discord.utils import get
+from discord.ext import commands
 
 
-class FreeGameNewsModerator:
+class FreeGameNewsModerator(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot

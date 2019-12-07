@@ -10,7 +10,7 @@ from discord.utils import get
 from config.rrph_config import RRPH
 
 
-class REPL:
+class REPL(commands.Cog):
     """Admin-only commands that make the bot dynamic."""
 
     def __init__(self, bot):

@@ -2,3 +2,5 @@ config/config.json
 cogs/cogdata/
 *__pychache__*
 *.pyc
+papa.png
+
